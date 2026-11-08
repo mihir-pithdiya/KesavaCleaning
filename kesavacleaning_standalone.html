@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KesavaCleaning | Pure Liquid Formulations</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- React & ReactDOM CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  
+  <!-- Babel for inline JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#FBFBFA] text-neutral-800 antialiased selection:bg-emerald-200 selection:text-emerald-900">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo } = React;
+
+    // --- CURATED HIGH-RESOLUTION PRODUCT CATALOG ---
+    const INITIAL_PRODUCTS = [
+      {
+        id: "kc-101",
+        name: "Citrus Power Kitchen Degreaser",
+        category: "Kitchen Degreasers & Stovetops",
+        volume: "500ml",
+        regularPrice: 349,
+        offerPrice: 249,
+        rating: 4.8,
+        reviewsCount: 428,
+        stock: 45,
+        scent: "Cold-Pressed Sweet Orange & Lime",
+        pH: "7.2 (Neutral)",
+        surfaces: "Stainless steel chimneys, gas stoves, ceramic tiles",
+        images: ["https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1000&q=85"],
+        featured: true,
+        description: "Bio-enzyme concentrated formulation engineered to dissolve stubborn grease without caustic fumes."
+      },
+      {
+        id: "kc-102",
+        name: "Neem & French Lavender Floor Cleaner Liquid",
+        category: "Heavy-Duty Floor Cleaners",
+        volume: "1 Liter",
+        regularPrice: 499,
+        offerPrice: 399,
+        rating: 4.9,
+        reviewsCount: 890,
+        stock: 60,
+        scent: "French Lavender & Herbal Neem",
+        pH: "6.8 (Safe for polished marble)",
+        surfaces: "Italian marble, vitrified tiles, polished granite",
+        images: ["https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=1000&q=85"],
+        featured: true,
+        description: "Ayurvedic neem extract repellent formula that leaves mirror shine on tiles and sealed floors."
+      },
+      {
+        id: "kc-103",
+        name: "CrystalClear Streak-Free Glass & Mirror Liquid",
+        category: "Glass & Mirror Streak-Free Liquids",
+        volume: "500ml",
+        regularPrice: 249,
+        offerPrice: 189,
+        rating: 4.7,
+        reviewsCount: 312,
+        stock: 28,
+        scent: "Spearmint & Ocean Breeze",
+        pH: "6.5",
+        surfaces: "Mirrors, tinted car glass, glass dining tables",
+        images: ["https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=1000&q=85"],
+        featured: true,
+        description: "Fast-evaporating formula with zero streaks, haze, or lint attraction."
+      },
+      {
+        id: "kc-104",
+        name: "Active Pine Bathroom & Tile Limescale Buster",
+        category: "Bathroom & Tile Cleaners",
+        volume: "750ml",
+        regularPrice: 399,
+        offerPrice: 299,
+        rating: 4.8,
+        reviewsCount: 512,
+        stock: 35,
+        scent: "Himalayan Mountain Pine",
+        pH: "3.2 (Organic Citric Base)",
+        surfaces: "Ceramic wash basins, chrome faucets, shower stalls",
+        images: ["https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=1000&q=85"],
+        featured: true,
+        description: "Dissolves stubborn limescale and soap scum using organic citric acids."
+      },
+      {
+        id: "kc-105",
+        name: "Industrial Canister Heavy-Duty Floor Wash",
+        category: "Heavy-Duty Floor Cleaners",
+        volume: "5 Liter Canister",
+        regularPrice: 1499,
+        offerPrice: 1199,
+        rating: 4.9,
+        reviewsCount: 184,
+        stock: 15,
+        scent: "Eucalyptus & Camphor",
+        pH: "7.0 (Neutral Concentrated)",
+        surfaces: "Warehouses, commercial kitchens, garage floors",
+        images: ["https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=1000&q=85"],
+        featured: false,
+        description: "Commercial 5L canister formulation designed for scrubbing machines and heavy industrial mopping."
+      },
+      {
+        id: "kc-106",
+        name: "Botanical Multi-Surface Herbal Sanitizing Spray",
+        category: "Multi-Surface All-Purpose Liquids",
+        volume: "500ml",
+        regularPrice: 299,
+        offerPrice: 229,
+        rating: 4.8,
+        reviewsCount: 295,
+        stock: 42,
+        scent: "Lemongrass & Tea Tree",
+        pH: "6.9 (Food Prep Safe)",
+        surfaces: "Dining tables, kitchen quartz counters, laptops",
+        images: ["https://images.unsplash.com/photo-1585751119414-ef2636f8aede?auto=format&fit=crop&w=1000&q=85"],
+        featured: true,
+        description: "Hospitality grade 99.9% bacterial kill rate utilizing pure botanical distillates."
+      }
+    ];
+
+    const INITIAL_USERS = [
+      { id: "u-1", name: "Kesava Admin", email: "admin@kesavacleaning.com", password: "admin123", role: "admin", phone: "+91 90000 11223" },
+      { id: "u-2", name: "Priya Sharma", email: "priya@example.com", password: "user123", role: "customer", phone: "+91 98765 43210", address: "B-402 Bellandur Bengaluru" }
+    ];
+
+    const INITIAL_COUPONS = [
+      { code: "KESAVA10", value: 10, minOrder: 300, desc: "10% OFF orders > ₹300" },
+      { code: "CLEAN50", value: 50, minOrder: 499, desc: "Flat ₹50 OFF orders > ₹499" },
+      { code: "FREESHIP", value: 40, minOrder: 350, desc: "₹40 Shipping Credit" }
+    ];
+
+    const INITIAL_ORDERS = [
+      {
+        orderId: "KC-98301",
+        createdAt: "2026-11-08T10:15:00.000Z",
+        date: "08 Nov 2026, 03:45 PM",
+        customerName: "Ananya Deshmukh",
+        phone: "+91 97711 22334",
+        address: "Flat 4B, Palm Grove Residences, Indiranagar, Bengaluru - 560038",
+        items: [
+          { id: "kc-101", name: "Citrus Power Kitchen Degreaser", volume: "500ml", category: "Kitchen Degreasers & Stovetops", qty: 2, price: 249 },
+          { id: "kc-103", name: "CrystalClear Streak-Free Glass & Mirror Liquid", volume: "500ml", category: "Glass & Mirror Streak-Free Liquids", qty: 1, price: 189 }
+        ],
+        total: 687,
+        paymentMethod: "UPI (Google Pay)",
+        status: "Pending"
+      },
+      {
+        orderId: "KC-98288",
+        createdAt: "2026-11-07T05:45:00.000Z",
+        date: "07 Nov 2026, 11:15 AM",
+        customerName: "Rahul Verma",
+        phone: "+91 99887 76655",
+        address: "Flat 12A, Marina Heights, Worli, Mumbai - 400018",
+        items: [
+          { id: "kc-104", name: "Active Pine Bathroom & Tile Limescale Buster", volume: "750ml", category: "Bathroom & Tile Cleaners", qty: 2, price: 299 }
+        ],
+        total: 598,
+        paymentMethod: "Cash on Delivery",
+        status: "Dispatched"
+      },
+      {
+        orderId: "KC-98214",
+        createdAt: "2026-11-04T09:15:00.000Z",
+        date: "04 Nov 2026, 02:45 PM",
+        customerName: "Priya Sharma",
+        phone: "+91 98765 43210",
+        address: "B-402, Green Glen Layout, Bellandur, Bengaluru - 560103",
+        items: [
+          { id: "kc-101", name: "Citrus Power Kitchen Degreaser", volume: "500ml", category: "Kitchen Degreasers & Stovetops", qty: 2, price: 249 },
+          { id: "kc-102", name: "Neem & French Lavender Floor Cleaner Liquid", volume: "1 Liter", category: "Heavy-Duty Floor Cleaners", qty: 1, price: 399 }
+        ],
+        total: 897,
+        paymentMethod: "UPI (Google Pay)",
+        status: "Delivered"
+      },
+      {
+        orderId: "KC-98150",
+        createdAt: "2026-10-24T08:30:00.000Z",
+        date: "24 Oct 2026, 01:30 PM",
+        customerName: "Vikram Malhotra",
+        phone: "+91 98111 55443",
+        address: "Villa 18, Silver Oak Estate, Whitefield, Bengaluru - 560066",
+        items: [
+          { id: "kc-105", name: "Industrial Canister Heavy-Duty Floor Wash", volume: "5 Liter Canister", category: "Heavy-Duty Floor Cleaners", qty: 2, price: 1199 },
+          { id: "kc-106", name: "Botanical Multi-Surface Herbal Sanitizing Spray", volume: "500ml", category: "Multi-Surface All-Purpose Liquids", qty: 3, price: 229 }
+        ],
+        total: 3085,
+        paymentMethod: "Credit Card (HDFC)",
+        status: "Delivered"
+      },
+      {
+        orderId: "KC-97840",
+        createdAt: "2026-09-15T06:00:00.000Z",
+        date: "15 Sep 2026, 11:30 AM",
+        customerName: "Sunita Reddy",
+        phone: "+91 98490 88776",
+        address: "Plot 89, Jubilee Hills Road No. 36, Hyderabad - 500033",
+        items: [
+          { id: "kc-102", name: "Neem & French Lavender Floor Cleaner Liquid", volume: "1 Liter", category: "Heavy-Duty Floor Cleaners", qty: 3, price: 399 }
+        ],
+        total: 1197,
+        paymentMethod: "UPI (PhonePe)",
+        status: "Delivered"
+      },
+      {
+        orderId: "KC-96540",
+        createdAt: "2025-12-14T04:20:00.000Z",
+        date: "14 Dec 2025, 09:50 AM",
+        customerName: "Karthik Nambiar",
+        phone: "+91 97400 33221",
+        address: "Flat 304, Skyline Meadows, Kochi, Kerala - 682020",
+        items: [
+          { id: "kc-103", name: "CrystalClear Streak-Free Glass & Mirror Liquid", volume: "500ml", category: "Glass & Mirror Streak-Free Liquids", qty: 2, price: 189 },
+          { id: "kc-106", name: "Botanical Multi-Surface Herbal Sanitizing Spray", volume: "500ml", category: "Multi-Surface All-Purpose Liquids", qty: 2, price: 229 }
+        ],
+        total: 836,
+        paymentMethod: "Net Banking (SBI)",
+        status: "Delivered"
+      }
+    ];
+
+    // --- SVG ICONS ---
+    const SparklesIcon = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>;
+    const ShoppingBagIcon = () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 6h18"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 10a4 4 0 0 1-8 0"/></svg>;
+    const ShieldCheckIcon = () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m9 12 2 2 4-4"/></svg>;
+    const LockIcon = () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>;
+    const FlameIcon = () => <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>;
+    const SpreadsheetIcon = () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>;
+    const CalendarIcon = () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>;
+    const DownloadIcon = () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>;
+
+    // --- MAIN REACT APPLICATION ---
+    function App() {
+      const [currentRoute, setCurrentRoute] = useState('/'); // '/', '/shop', '/cart', '/admin'
+      const [products, setProducts] = useState(INITIAL_PRODUCTS);
+      const [cart, setCart] = useState([{ ...INITIAL_PRODUCTS[0], cartQty: 1 }]);
+      const [orders, setOrders] = useState(INITIAL_ORDERS);
+      const [coupons, setCoupons] = useState(INITIAL_COUPONS);
+      const [appliedCoupon, setAppliedCoupon] = useState(null);
+      const [couponInput, setCouponInput] = useState("");
+      const [users, setUsers] = useState(INITIAL_USERS);
+      const [currentUser, setCurrentUser] = useState(null);
+      const [authModalOpen, setAuthModalOpen] = useState(false);
+      const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
+      const [toast, setToast] = useState(null);
+
+      // Selected Category for Shop
+      const [selectedCategory, setSelectedCategory] = useState("All");
+
+      // Store-wide Discount Engine State
+      const [storeWideDiscount, setStoreWideDiscount] = useState({
+        active: true,
+        percentage: 10,
+        bannerText: "Flash Sale: Extra 10% OFF applied across all bottled liquids!"
+      });
+
+      // Admin Login Gate Inputs (Strict Security)
+      const [gateEmail, setGateEmail] = useState("");
+      const [gatePass, setGatePass] = useState("");
+      const [gatePin, setGatePin] = useState("");
+      const [gateError, setGateError] = useState("");
+
+      // Customer Registration State
+      const [regName, setRegName] = useState("");
+      const [regEmail, setRegEmail] = useState("");
+      const [regPass, setRegPass] = useState("");
+      const [regPhone, setRegPhone] = useState("");
+
+      // Checkout form state
+      const [checkoutName, setCheckoutName] = useState("");
+      const [checkoutPhone, setCheckoutPhone] = useState("");
+      const [checkoutAddress, setCheckoutAddress] = useState("");
+      const [checkoutPayment, setCheckoutPayment] = useState("UPI (Google Pay)");
+
+      // Add Product Form State with Native File Upload (Base64)
+      const [newName, setNewName] = useState("");
+      const [newCategory, setNewCategory] = useState("Kitchen Degreasers & Stovetops");
+      const [newVolume, setNewVolume] = useState("500ml");
+      const [newRegPrice, setNewRegPrice] = useState("399");
+      const [newOfferPrice, setNewOfferPrice] = useState("299");
+      const [newStock, setNewStock] = useState("50");
+      const [uploadedImage, setUploadedImage] = useState("");
+      const [uploadedName, setUploadedName] = useState("");
+
+      // Date Range Filter & Sales Analytics State
+      const [orderPeriodFilter, setOrderPeriodFilter] = useState('all'); // 'all', 'week', 'month', 'year', 'custom'
+      const [customStartDate, setCustomStartDate] = useState('');
+      const [customEndDate, setCustomEndDate] = useState('');
+
+      const isCustomer = currentUser && currentUser.role === 'customer';
+      const isAdmin = currentUser && currentUser.role === 'admin';
+
+      const showToast = (msg) => {
+        setToast(msg);
+        setTimeout(() => setToast(null), 3000);
+      };
+
+      // Populate checkout fields when currentUser changes
+      useEffect(() => {
+        if (currentUser) {
+          setCheckoutName(currentUser.name || "");
+          setCheckoutPhone(currentUser.phone || "");
+          setCheckoutAddress(currentUser.address || "");
+        }
+      }, [currentUser]);
+
+      // Effective Price Helper (Calculates individual discount + store-wide sale)
+      const getEffectivePrice = (prod) => {
+        let price = Number(prod.offerPrice) || Number(prod.regularPrice);
+        if (storeWideDiscount && storeWideDiscount.active && storeWideDiscount.percentage > 0) {
+          price = Math.round(price * (1 - storeWideDiscount.percentage / 100));
+        }
+        return price;
+      };
+
+      // Cart Calculations
+      const cartSubtotal = useMemo(() => {
+        return cart.reduce((sum, item) => sum + (getEffectivePrice(item) * item.cartQty), 0);
+      }, [cart, storeWideDiscount]);
+
+      const discountAmount = useMemo(() => {
+        if (!appliedCoupon) return 0;
+        if (appliedCoupon.value <= 100) {
+          return Math.round((cartSubtotal * appliedCoupon.value) / 100);
+        }
+        return appliedCoupon.value;
+      }, [appliedCoupon, cartSubtotal]);
+
+      const cartTotal = Math.max(0, cartSubtotal - discountAmount);
+
+      // Safe date parser
+      const parseOrderDate = (order) => {
+        if (order.createdAt) {
+          const d = new Date(order.createdAt);
+          if (!isNaN(d.getTime())) return d;
+        }
+        if (order.date) {
+          const d = new Date(order.date);
+          if (!isNaN(d.getTime())) return d;
+        }
+        return new Date();
+      };
+
+      // Order Analytics Breakdown (Week, Month, Year, All)
+      const orderAnalytics = useMemo(() => {
+        const now = new Date();
+        const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        sevenDaysAgo.setHours(0, 0, 0, 0);
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);
+        const startOfYear = new Date(now.getFullYear(), 0, 1, 0, 0, 0);
+
+        let weekOrders = 0, weekRevenue = 0, weekUnits = 0;
+        let monthOrders = 0, monthRevenue = 0, monthUnits = 0;
+        let yearOrders = 0, yearRevenue = 0, yearUnits = 0;
+
+        orders.forEach(o => {
+          const d = parseOrderDate(o);
+          const rev = Number(o.total) || 0;
+          const units = (o.items || []).reduce((sum, it) => sum + (Number(it.qty) || 1), 0);
+
+          if (d >= sevenDaysAgo) {
+            weekOrders++;
+            weekRevenue += rev;
+            weekUnits += units;
+          }
+          if (d >= startOfMonth) {
+            monthOrders++;
+            monthRevenue += rev;
+            monthUnits += units;
+          }
+          if (d >= startOfYear) {
+            yearOrders++;
+            yearRevenue += rev;
+            yearUnits += units;
+          }
+        });
+
+        return {
+          week: { count: weekOrders, revenue: weekRevenue, units: weekUnits },
+          month: { count: monthOrders, revenue: monthRevenue, units: monthUnits },
+          year: { count: yearOrders, revenue: yearRevenue, units: yearUnits }
+        };
+      }, [orders]);
+
+      // Filtered Orders for the active view
+      const filteredOrders = useMemo(() => {
+        const now = new Date();
+        if (orderPeriodFilter === 'all') return orders;
+        if (orderPeriodFilter === 'week') {
+          const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+          sevenDaysAgo.setHours(0, 0, 0, 0);
+          return orders.filter(o => parseOrderDate(o) >= sevenDaysAgo);
+        }
+        if (orderPeriodFilter === 'month') {
+          const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);
+          return orders.filter(o => parseOrderDate(o) >= startOfMonth);
+        }
+        if (orderPeriodFilter === 'year') {
+          const startOfYear = new Date(now.getFullYear(), 0, 1, 0, 0, 0);
+          return orders.filter(o => parseOrderDate(o) >= startOfYear);
+        }
+        if (orderPeriodFilter === 'custom') {
+          return orders.filter(o => {
+            const d = parseOrderDate(o);
+            if (customStartDate) {
+              const start = new Date(customStartDate);
+              start.setHours(0, 0, 0, 0);
+              if (d < start) return false;
+            }
+            if (customEndDate) {
+              const end = new Date(customEndDate);
+              end.setHours(23, 59, 59, 999);
+              if (d > end) return false;
+            }
+            return true;
+          });
+        }
+        return orders;
+      }, [orders, orderPeriodFilter, customStartDate, customEndDate]);
+
+      const filteredStats = useMemo(() => {
+        const count = filteredOrders.length;
+        const revenue = filteredOrders.reduce((sum, o) => sum + (Number(o.total) || 0), 0);
+        const units = filteredOrders.reduce((sum, o) => sum + (o.items || []).reduce((s, it) => s + (Number(it.qty) || 1), 0), 0);
+        const avgOrderValue = count > 0 ? Math.round(revenue / count) : 0;
+        return { count, revenue, units, avgOrderValue };
+      }, [filteredOrders]);
+
+      // Export Order Ledger to Excel (CSV with UTF-8 BOM)
+      const downloadExcelReport = () => {
+        if (filteredOrders.length === 0) {
+          showToast("No orders available in the selected date range to export.");
+          return;
+        }
+
+        const headers = [
+          "Row #",
+          "Order ID",
+          "Sale Date",
+          "Product Name",
+          "Category Name",
+          "Bottle Volume",
+          "Unit Price (INR)",
+          "Units Bought (Qty)",
+          "Item Subtotal (INR)",
+          "Order Grand Total (INR)",
+          "Payment Method",
+          "Fulfillment Status",
+          "Customer Name",
+          "Customer Phone",
+          "Delivery Address"
+        ];
+
+        const escapeCsv = (val) => {
+          if (val === null || val === undefined) return '""';
+          const str = String(val).replace(/"/g, '""');
+          return `"${str}"`;
+        };
+
+        const rows = [];
+        let rowIndex = 1;
+        let totalUnitsExported = 0;
+        let totalRevenueExported = 0;
+
+        filteredOrders.forEach(order => {
+          const saleDateStr = order.createdAt 
+            ? new Date(order.createdAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }) 
+            : (order.date || "N/A");
+
+          if (order.items && order.items.length > 0) {
+            order.items.forEach(item => {
+              const itemQty = Number(item.qty) || 1;
+              const itemPrice = Number(item.price) || 0;
+              const itemSubtotal = itemQty * itemPrice;
+              totalUnitsExported += itemQty;
+
+              rows.push([
+                rowIndex++,
+                order.orderId || "N/A",
+                saleDateStr,
+                item.name || "Cleaning Liquid Formulation",
+                item.category || "Cleaning Formulations",
+                item.volume || "Standard Bottle",
+                itemPrice,
+                itemQty,
+                itemSubtotal,
+                order.total || itemSubtotal,
+                order.paymentMethod || "Prepaid",
+                order.status || "Pending",
+                order.customerName || "Customer",
+                order.phone || "N/A",
+                order.address || "N/A"
+              ]);
+            });
+          }
+          totalRevenueExported += Number(order.total) || 0;
+        });
+
+        // Summary totals row
+        rows.push([]);
+        rows.push([
+          "SUMMARY TOTALS",
+          `Total Orders: ${filteredOrders.length}`,
+          `Filter Period: ${orderPeriodFilter.toUpperCase()}`,
+          "",
+          "",
+          "",
+          "",
+          `Total Units Sold: ${totalUnitsExported}`,
+          "",
+          `Gross Sales: INR ${totalRevenueExported}`,
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]);
+
+        const csvContent = "\uFEFF" + [
+          headers.map(escapeCsv).join(","),
+          ...rows.map(row => row.map(escapeCsv).join(","))
+        ].join("\r\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        const timestamp = new Date().toISOString().slice(0, 10);
+        link.setAttribute("href", url);
+        link.setAttribute("download", `KesavaCleaning_Orders_${orderPeriodFilter}_${timestamp}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+
+        showToast(`Excel report downloaded! (${rows.length - 2} item rows exported)`);
+      };
+
+      // Strict Admin Gate Login
+      const handleStrictAdminLogin = (e) => {
+        e.preventDefault();
+        setGateError("");
+        if (gatePin !== "admin123" && gatePin !== "kesava2026") {
+          setGateError("Invalid Admin Master PIN (Use 'admin123'). Verification failed.");
+          return;
+        }
+        const found = users.find(u => u.email.toLowerCase() === gateEmail.trim().toLowerCase() && u.password === gatePass.trim());
+        if (found && found.role === 'admin') {
+          setCurrentUser(found);
+          showToast("Admin console unlocked!");
+          setGateEmail("");
+          setGatePass("");
+          setGatePin("");
+        } else {
+          setGateError("Invalid administrator credentials.");
+        }
+      };
+
+      // Cart Actions
+      const addToCart = (product) => {
+        const existing = cart.find(i => i.id === product.id);
+        if (existing) {
+          setCart(cart.map(i => i.id === product.id ? { ...i, cartQty: i.cartQty + 1 } : i));
+        } else {
+          setCart([...cart, { ...product, cartQty: 1 }]);
+        }
+        showToast(`Added ${product.name} to cart`);
+      };
+
+      const updateQty = (id, delta) => {
+        setCart(cart.map(i => {
+          if (i.id === id) {
+            const newQty = i.cartQty + delta;
+            return newQty > 0 ? { ...i, cartQty: newQty } : null;
+          }
+          return i;
+        }).filter(Boolean));
+      };
+
+      // Coupon Application
+      const handleApplyCoupon = (e) => {
+        e.preventDefault();
+        const code = couponInput.trim().toUpperCase();
+        const found = coupons.find(c => c.code === code);
+        if (found) {
+          if (cartSubtotal < (found.minOrder || 0)) {
+            showToast(`Coupon requires minimum order of ₹${found.minOrder}`);
+            return;
+          }
+          setAppliedCoupon(found);
+          showToast(`Coupon ${code} applied successfully!`);
+          setCouponInput("");
+        } else {
+          showToast("Invalid coupon code.");
+        }
+      };
+
+      // Checkout Submission
+      const handleCheckout = (e) => {
+        e.preventDefault();
+        if (!currentUser) {
+          setAuthMode('login');
+          setAuthModalOpen(true);
+          showToast("Please sign in or register to place your order.");
+          return;
+        }
+
+        const now = new Date();
+        const newOrder = {
+          orderId: `KC-${Math.floor(10000 + Math.random() * 90000)}`,
+          createdAt: now.toISOString(),
+          date: now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + `, ` + now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
+          customerName: checkoutName,
+          phone: checkoutPhone,
+          address: checkoutAddress,
+          items: cart.map(item => ({
+            id: item.id,
+            name: item.name,
+            volume: item.volume,
+            category: item.category || "Cleaning Formulations",
+            qty: item.cartQty,
+            price: getEffectivePrice(item)
+          })),
+          total: cartTotal,
+          paymentMethod: checkoutPayment,
+          status: "Pending"
+        };
+
+        setOrders([newOrder, ...orders]);
+        setCart([]);
+        setAppliedCoupon(null);
+        showToast(`Order placed successfully! Order ID: #${newOrder.orderId}`);
+        setCurrentRoute('/admin');
+      };
+
+      // Handle Native File Upload
+      const handleFileUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          setUploadedName(file.name);
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setUploadedImage(reader.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+
+      // Add Product Submission
+      const handleAddProduct = (e) => {
+        e.preventDefault();
+        const reg = Number(newRegPrice) || 399;
+        const off = Number(newOfferPrice) || 299;
+        const fallbackImg = "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1000&q=85";
+
+        const prod = {
+          id: `kc-${Date.now().toString().slice(-4)}`,
+          name: newName,
+          category: newCategory,
+          volume: newVolume,
+          regularPrice: reg,
+          offerPrice: off,
+          rating: 5.0,
+          reviewsCount: 1,
+          stock: Number(newStock) || 50,
+          scent: "Pure Fresh Botanical",
+          pH: "7.0 (Neutral)",
+          surfaces: "All sealed home surfaces",
+          images: [uploadedImage || fallbackImg],
+          featured: true,
+          description: "Freshly formulated liquid cleaner ready for professional use."
+        };
+
+        setProducts([prod, ...products]);
+        showToast(`Published: ${prod.name}`);
+        setNewName("");
+        setUploadedImage("");
+        setUploadedName("");
+      };
+
+      return (
+        <div className="min-h-screen flex flex-col font-sans">
+          
+          {/* TOP GLOBAL ANNOUNCEMENT / PROMO BANNER */}
+          {storeWideDiscount && storeWideDiscount.active && (
+            <div className="bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-800 text-white text-xs font-bold py-2 px-4 text-center shadow-inner flex items-center justify-center gap-2">
+              <FlameIcon />
+              <span>{storeWideDiscount.bannerText} ({storeWideDiscount.percentage}% Store-Wide OFF applied at checkout!)</span>
+            </div>
+          )}
+
+          {/* NAVBAR */}
+          <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200">
+            <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+              
+              {/* Brand Logo */}
+              <div 
+                onClick={() => setCurrentRoute('/')}
+                className="flex items-center gap-2 cursor-pointer select-none"
+              >
+                <div className="w-10 h-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-emerald-200">
+                  K
+                </div>
+                <div>
+                  <span className="text-lg font-black tracking-tight text-neutral-900 block leading-tight">
+                    Kesava<span className="text-emerald-600">Cleaning</span>
+                  </span>
+                  <span className="text-[10px] font-semibold tracking-wider text-neutral-400 block -mt-0.5">
+                    PURE LIQUID FORMULATIONS
+                  </span>
+                </div>
+              </div>
+
+              {/* Navigation Links */}
+              <nav className="flex items-center gap-1 sm:gap-2">
+                <button 
+                  onClick={() => setCurrentRoute('/')} 
+                  className={`px-3 py-1.5 rounded-full text-xs font-bold transition ${
+                    currentRoute === '/' ? 'bg-emerald-50 text-emerald-800' : 'text-neutral-600 hover:text-neutral-900'
+                  }`}
+                >
+                  Home
+                </button>
+                <button 
+                  onClick={() => setCurrentRoute('/shop')} 
+                  className={`px-3 py-1.5 rounded-full text-xs font-bold transition ${
+                    currentRoute === '/shop' ? 'bg-emerald-50 text-emerald-800' : 'text-neutral-600 hover:text-neutral-900'
+                  }`}
+                >
+                  All Liquids
+                </button>
+                <button 
+                  onClick={() => setCurrentRoute('/cart')} 
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition relative ${
+                    currentRoute === '/cart' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-800'
+                  }`}
+                >
+                  <ShoppingBagIcon />
+                  <span className="hidden sm:inline">Cart</span>
+                  <span className={`text-[11px] px-1.5 py-0.2 rounded-full font-black ${currentRoute === '/cart' ? 'bg-white text-emerald-800' : 'bg-emerald-600 text-white'}`}>
+                    {cart.reduce((s, i) => s + i.cartQty, 0)}
+                  </span>
+                </button>
+
+                {/* Admin Button: Disabled if Customer is Logged In */}
+                {isCustomer ? (
+                  <button 
+                    disabled 
+                    title="Admin Console Disabled for Customer accounts" 
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-neutral-100 text-neutral-400 border border-neutral-200 cursor-not-allowed opacity-60"
+                  >
+                    <LockIcon />
+                    <span className="hidden sm:inline">Admin (Locked)</span>
+                  </button>
+                ) : (
+                  <button 
+                    onClick={() => setCurrentRoute('/admin')} 
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black transition ${
+                      currentRoute === '/admin' ? 'bg-neutral-900 text-white' : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-800'
+                    }`}
+                  >
+                    <ShieldCheckIcon />
+                    <span>Admin Panel</span>
+                    {isAdmin && <span className="w-2 h-2 rounded-full bg-emerald-500"></span>}
+                  </button>
+                )}
+              </nav>
+
+              {/* User Authentication Status */}
+              <div className="flex items-center gap-2">
+                {currentUser ? (
+                  <div className="flex items-center gap-2 bg-neutral-100 px-3 py-1.5 rounded-full border text-xs">
+                    <span className="font-bold text-neutral-900">{currentUser.name}</span>
+                    <span className={`text-[10px] uppercase font-black px-1.5 py-0.5 rounded text-white ${isAdmin ? 'bg-purple-600' : 'bg-emerald-600'}`}>
+                      {currentUser.role}
+                    </span>
+                    <button 
+                      onClick={() => { setCurrentUser(null); showToast("Logged out successfully"); }} 
+                      className="text-red-500 text-[11px] font-bold ml-1 hover:underline cursor-pointer"
+                    >
+                      Exit
+                    </button>
+                  </div>
+                ) : (
+                  <button 
+                    onClick={() => { setAuthMode('login'); setAuthModalOpen(true); }}
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition cursor-pointer shadow-sm"
+                  >
+                    Sign In
+                  </button>
+                )}
+              </div>
+
+            </div>
+          </header>
+
+          {/* MAIN PAGE BODY */}
+          <main className="flex-1 max-w-7xl mx-auto px-4 py-6 w-full space-y-8">
+            
+            {/* 1. HOME VIEW */}
+            {currentRoute === '/' && (
+              <div className="space-y-10">
+                {/* Hero Banner */}
+                <div className="bg-gradient-to-br from-neutral-900 via-neutral-800 to-emerald-950 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl">
+                  <div className="relative z-10 max-w-2xl space-y-4">
+                    <span className="text-[11px] uppercase font-black tracking-widest text-emerald-400 bg-emerald-900/60 px-3 py-1 rounded-full border border-emerald-700">
+                      High-Concentrate Industrial & Domestic Formulations
+                    </span>
+                    <h1 className="text-3xl sm:text-5xl font-black leading-tight tracking-tight">
+                      Engineered Cleanliness. <br/><span className="text-emerald-400">Pure Bottled Potency.</span>
+                    </h1>
+                    <p className="text-neutral-300 text-xs sm:text-sm">
+                      KesavaCleaning creates zero-filler, cold-distilled liquid cleaning concentrates for sparkling floors, streak-free glass, and spotless kitchens.
+                    </p>
+                    <div className="pt-2 flex flex-wrap gap-3">
+                      <button 
+                        onClick={() => setCurrentRoute('/shop')}
+                        className="bg-emerald-500 hover:bg-emerald-600 text-neutral-950 font-black px-6 py-3 rounded-2xl text-xs transition shadow-lg shadow-emerald-500/20"
+                      >
+                        Explore Formulation Catalog &rarr;
+                      </button>
+                      <button 
+                        onClick={() => setCurrentRoute('/admin')}
+                        className="bg-white/10 hover:bg-white/20 text-white font-bold px-5 py-3 rounded-2xl text-xs backdrop-blur border border-white/20"
+                      >
+                        Admin Control Center
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2-PER-ROW MOBILE GRID (grid-cols-2 lg:grid-cols-4) */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-xl font-black text-neutral-900">Featured Formulations</h2>
+                      <p className="text-xs text-neutral-500">Pure bottled liquids ready for instant dispatch.</p>
+                    </div>
+                    <button onClick={() => setCurrentRoute('/shop')} className="text-xs font-bold text-emerald-700 hover:underline">
+                      View All ({products.length}) &rarr;
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+                    {products.map(prod => {
+                      const effPrice = getEffectivePrice(prod);
+                      const disc = Math.round(((prod.regularPrice - effPrice) / prod.regularPrice) * 100);
+                      return (
+                        <div key={prod.id} className="bg-white rounded-3xl p-3 sm:p-4 border border-neutral-200 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+                          <div className="space-y-2">
+                            <div className="aspect-square rounded-2xl overflow-hidden bg-neutral-100 relative">
+                              <img src={prod.images[0]} alt={prod.name} className="w-full h-full object-cover" />
+                              {disc > 0 && (
+                                <span className="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow">
+                                  {disc}% OFF
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">{prod.volume}</span>
+                            <h3 className="font-extrabold text-xs sm:text-sm text-neutral-900 line-clamp-2 leading-snug">{prod.name}</h3>
+                          </div>
+
+                          <div className="pt-3 border-t border-neutral-100 mt-3 flex items-center justify-between">
+                            <div>
+                              <span className="text-xs sm:text-base font-black text-emerald-800">₹{effPrice}</span>
+                              {prod.regularPrice > effPrice && (
+                                <span className="text-[10px] text-neutral-400 line-through block -mt-1">₹{prod.regularPrice}</span>
+                              )}
+                            </div>
+                            <button 
+                              onClick={() => addToCart(prod)}
+                              className="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-xl text-xs font-black shadow-sm"
+                            >
+                              Add +
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 2. SHOP / CATALOG VIEW */}
+            {currentRoute === '/shop' && (
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-2xl font-black text-neutral-900">Formulation Catalog</h2>
+                  <p className="text-xs text-neutral-500">Browse all chemical formulations engineered by KesavaCleaning.</p>
+                </div>
+
+                {/* 2-PER-ROW MOBILE GRID */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+                  {products.map(prod => {
+                    const effPrice = getEffectivePrice(prod);
+                    const disc = Math.round(((prod.regularPrice - effPrice) / prod.regularPrice) * 100);
+                    return (
+                      <div key={prod.id} className="bg-white rounded-3xl p-3 sm:p-4 border border-neutral-200 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+                        <div className="space-y-2">
+                          <div className="aspect-square rounded-2xl overflow-hidden bg-neutral-100 relative">
+                            <img src={prod.images[0]} alt={prod.name} className="w-full h-full object-cover" />
+                            {disc > 0 && (
+                              <span className="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow">
+                                {disc}% OFF
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">{prod.volume} &bull; {prod.category}</span>
+                          <h3 className="font-extrabold text-xs sm:text-sm text-neutral-900 line-clamp-2 leading-snug">{prod.name}</h3>
+                          <p className="text-[11px] text-neutral-500 line-clamp-2">{prod.description}</p>
+                        </div>
+
+                        <div className="pt-3 border-t border-neutral-100 mt-3 flex items-center justify-between">
+                          <div>
+                            <span className="text-xs sm:text-base font-black text-emerald-800">₹{effPrice}</span>
+                            {prod.regularPrice > effPrice && (
+                              <span className="text-[10px] text-neutral-400 line-through block -mt-1">₹{prod.regularPrice}</span>
+                            )}
+                          </div>
+                          <button 
+                            onClick={() => addToCart(prod)}
+                            className="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-xl text-xs font-black shadow-sm"
+                          >
+                            Add +
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* 3. CART & CHECKOUT VIEW (MANDATORY LOGIN ENFORCEMENT) */}
+            {currentRoute === '/cart' && (
+              <div className="max-w-4xl mx-auto space-y-6">
+                <h2 className="text-2xl font-black text-neutral-900">Your Procurement Cart ({cart.length} Liquids)</h2>
+
+                {cart.length === 0 ? (
+                  <div className="bg-white rounded-3xl p-12 text-center border border-neutral-200 space-y-4">
+                    <div className="w-16 h-16 bg-neutral-100 text-neutral-400 rounded-full flex items-center justify-center mx-auto">
+                      <ShoppingBagIcon />
+                    </div>
+                    <h3 className="font-black text-lg text-neutral-900">Your Cart is Empty</h3>
+                    <p className="text-xs text-neutral-500">Add liquid formulations from our catalog to proceed.</p>
+                    <button 
+                      onClick={() => setCurrentRoute('/shop')}
+                      className="bg-emerald-600 text-white font-bold px-6 py-2.5 rounded-xl text-xs hover:bg-emerald-700"
+                    >
+                      Browse Formulations
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    {/* Cart Items List */}
+                    <div className="lg:col-span-7 bg-white rounded-3xl p-6 border border-neutral-200 shadow-sm space-y-4">
+                      {cart.map(item => (
+                        <div key={item.id} className="flex items-center justify-between pb-4 border-b border-neutral-100 gap-4">
+                          <img src={item.images[0]} alt={item.name} className="w-16 h-16 rounded-2xl object-cover bg-neutral-100 shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-extrabold text-xs sm:text-sm text-neutral-900 truncate">{item.name}</h4>
+                            <span className="text-[10px] text-neutral-400 block">{item.volume} &bull; ₹{getEffectivePrice(item)}/unit</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button onClick={() => updateQty(item.id, -1)} className="w-7 h-7 rounded-lg bg-neutral-100 font-bold hover:bg-neutral-200">-</button>
+                            <span className="font-bold text-xs w-4 text-center">{item.cartQty}</span>
+                            <button onClick={() => updateQty(item.id, 1)} className="w-7 h-7 rounded-lg bg-neutral-100 font-bold hover:bg-neutral-200">+</button>
+                          </div>
+                          <span className="font-black text-xs sm:text-sm text-neutral-900 w-16 text-right">
+                            ₹{getEffectivePrice(item) * item.cartQty}
+                          </span>
+                        </div>
+                      ))}
+
+                      {/* Coupon Box */}
+                      <form onSubmit={handleApplyCoupon} className="pt-2 flex gap-2">
+                        <input 
+                          type="text" 
+                          placeholder="Coupon (e.g. KESAVA10)" 
+                          value={couponInput} 
+                          onChange={e => setCouponInput(e.target.value)} 
+                          className="flex-1 p-2 bg-neutral-50 rounded-xl border border-neutral-200 text-xs font-mono font-bold uppercase"
+                        />
+                        <button type="submit" className="bg-neutral-900 text-white text-xs font-bold px-4 py-2 rounded-xl">
+                          Apply
+                        </button>
+                      </form>
+                      {appliedCoupon && (
+                        <div className="text-xs font-bold text-emerald-700 bg-emerald-50 p-2 rounded-xl border border-emerald-200 flex justify-between items-center">
+                          <span>Applied: {appliedCoupon.code} ({appliedCoupon.desc})</span>
+                          <button onClick={() => setAppliedCoupon(null)} className="text-red-500 font-bold ml-2">Remove</button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Order Summary & Mandatory Login Gate */}
+                    <div className="lg:col-span-5 bg-white rounded-3xl p-6 border border-neutral-200 shadow-sm space-y-4">
+                      <h3 className="font-black text-base text-neutral-900">Order Summary</h3>
+                      
+                      <div className="space-y-2 text-xs border-b pb-4">
+                        <div className="flex justify-between text-neutral-600">
+                          <span>Subtotal</span>
+                          <span className="font-bold text-neutral-900">₹{cartSubtotal}</span>
+                        </div>
+                        {discountAmount > 0 && (
+                          <div className="flex justify-between text-emerald-600 font-bold">
+                            <span>Coupon Discount</span>
+                            <span>-₹{discountAmount}</span>
+                          </div>
+                        )}
+                        <div className="flex justify-between text-neutral-600">
+                          <span>Shipping</span>
+                          <span className="font-bold text-emerald-600">FREE</span>
+                        </div>
+                        <div className="flex justify-between text-sm font-black text-neutral-900 pt-2 border-t">
+                          <span>Final Total</span>
+                          <span className="text-emerald-700">₹{cartTotal}</span>
+                        </div>
+                      </div>
+
+                      {/* CHECKOUT SECTION: IF NOT LOGGED IN, REQUIRE SIGN IN */}
+                      {!currentUser ? (
+                        <div className="bg-amber-50 p-4 rounded-2xl border border-amber-200 space-y-3 text-center">
+                          <p className="text-xs font-bold text-amber-900">
+                            Authentication Required to Complete Purchase
+                          </p>
+                          <p className="text-[11px] text-amber-700">
+                            Please sign in or register so we can link your delivery address and send dispatch updates.
+                          </p>
+                          <button 
+                            type="button"
+                            onClick={() => { setAuthMode('login'); setAuthModalOpen(true); }}
+                            className="w-full py-3 bg-neutral-900 text-white font-black rounded-xl text-xs hover:bg-neutral-800 shadow"
+                          >
+                            Sign In / Register to Buy &rarr;
+                          </button>
+                        </div>
+                      ) : (
+                        <form onSubmit={handleCheckout} className="space-y-3 text-xs">
+                          <div>
+                            <label className="font-bold block mb-1">Customer Name</label>
+                            <input 
+                              type="text" 
+                              required 
+                              value={checkoutName} 
+                              onChange={e => setCheckoutName(e.target.value)} 
+                              className="w-full p-2 bg-neutral-50 rounded-xl border font-bold" 
+                            />
+                          </div>
+                          <div>
+                            <label className="font-bold block mb-1">Contact Phone</label>
+                            <input 
+                              type="tel" 
+                              required 
+                              value={checkoutPhone} 
+                              onChange={e => setCheckoutPhone(e.target.value)} 
+                              className="w-full p-2 bg-neutral-50 rounded-xl border font-bold" 
+                            />
+                          </div>
+                          <div>
+                            <label className="font-bold block mb-1">Delivery Address</label>
+                            <textarea 
+                              required 
+                              rows="2" 
+                              value={checkoutAddress} 
+                              onChange={e => setCheckoutAddress(e.target.value)} 
+                              className="w-full p-2 bg-neutral-50 rounded-xl border text-xs" 
+                            />
+                          </div>
+                          <div>
+                            <label className="font-bold block mb-1">Payment Method</label>
+                            <select 
+                              value={checkoutPayment} 
+                              onChange={e => setCheckoutPayment(e.target.value)} 
+                              className="w-full p-2 bg-neutral-50 rounded-xl border font-bold"
+                            >
+                              <option value="UPI (Google Pay)">UPI (Google Pay)</option>
+                              <option value="UPI (PhonePe)">UPI (PhonePe)</option>
+                              <option value="Credit / Debit Card">Credit / Debit Card</option>
+                              <option value="Cash on Delivery">Cash on Delivery</option>
+                            </select>
+                          </div>
+                          <button 
+                            type="submit" 
+                            className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl text-xs shadow-lg shadow-emerald-200"
+                          >
+                            Confirm Order &bull; ₹{cartTotal}
+                          </button>
+                        </form>
+                      )}
+
+                    </div>
+
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 4. ADMIN CONTROL CENTER (STRICT SECURITY & FILE UPLOAD & SALES REPORT EXPORTER) */}
+            {currentRoute === '/admin' && (
+              isCustomer ? (
+                /* Customer 403 Forbidden Access */
+                <div className="max-w-md mx-auto p-8 bg-white rounded-3xl border border-red-200 text-center space-y-4 shadow-xl">
+                  <div className="w-14 h-14 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto">
+                    <LockIcon />
+                  </div>
+                  <h2 className="text-xl font-black text-neutral-900">Access Denied (403 Forbidden)</h2>
+                  <p className="text-xs text-neutral-600">
+                    You are logged in as a <strong>Customer</strong> account ({currentUser.email}). The administrator terminal requires master credentials.
+                  </p>
+                  <button 
+                    onClick={() => { setCurrentUser(null); showToast("Logged out from Customer account"); }} 
+                    className="w-full py-2.5 bg-neutral-900 text-white rounded-xl text-xs font-bold hover:bg-neutral-800"
+                  >
+                    Log Out to Switch Account
+                  </button>
+                </div>
+              ) : !isAdmin ? (
+                /* Strict Admin Login Form with PIN Verification */
+                <div className="max-w-md mx-auto p-8 bg-white rounded-3xl border border-neutral-200 shadow-2xl space-y-4">
+                  <div className="w-14 h-14 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center mx-auto">
+                    <ShieldCheckIcon />
+                  </div>
+                  <div className="text-center">
+                    <h2 className="text-xl font-black text-neutral-900">Admin Console Verification</h2>
+                    <p className="text-xs text-neutral-500">Requires Admin Email, Password & 2FA PIN (admin123)</p>
+                  </div>
+                  {gateError && <div className="text-red-600 text-xs font-bold text-center bg-red-50 p-2 rounded-xl">{gateError}</div>}
+                  <form onSubmit={handleStrictAdminLogin} className="space-y-3 text-xs">
+                    <div>
+                      <label className="font-bold block mb-1">Admin Email</label>
+                      <input type="email" required placeholder="admin@kesavacleaning.com" value={gateEmail} onChange={e => setGateEmail(e.target.value)} className="w-full p-2.5 bg-neutral-100 rounded-xl border font-bold" />
+                    </div>
+                    <div>
+                      <label className="font-bold block mb-1">Master Password</label>
+                      <input type="password" required placeholder="Password (admin123)" value={gatePass} onChange={e => setGatePass(e.target.value)} className="w-full p-2.5 bg-neutral-100 rounded-xl border" />
+                    </div>
+                    <div>
+                      <label className="font-bold block mb-1">2FA Security PIN</label>
+                      <input type="password" required placeholder="Security PIN (admin123)" value={gatePin} onChange={e => setGatePin(e.target.value)} className="w-full p-2.5 bg-neutral-100 rounded-xl border text-center font-mono font-bold tracking-widest" />
+                    </div>
+                    <button type="submit" className="w-full py-3 bg-neutral-900 text-white font-bold rounded-xl hover:bg-neutral-800">
+                      Unlock Admin Terminal
+                    </button>
+                  </form>
+                </div>
+              ) : (
+                /* Authenticated Admin Dashboard */
+                <div className="space-y-8">
+                  
+                  {/* Admin Header */}
+                  <div className="bg-white rounded-3xl p-6 border border-neutral-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+                    <div>
+                      <span className="text-[10px] font-black uppercase text-purple-600 tracking-wider">Authenticated Console</span>
+                      <h1 className="text-2xl font-black text-neutral-900">KesavaCleaning Control Center</h1>
+                    </div>
+                    <button 
+                      onClick={() => { setCurrentUser(null); showToast("Admin console locked"); }} 
+                      className="bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-xs font-bold px-4 py-2 rounded-xl self-start sm:self-auto"
+                    >
+                      Lock Terminal
+                    </button>
+                  </div>
+
+                  {/* 1. STORE-WIDE PROMOTIONAL CAMPAIGN CONTROLLER */}
+                  <div className="bg-white rounded-3xl p-6 border border-neutral-200 space-y-4 shadow-sm">
+                    <h3 className="font-black text-base text-neutral-900 flex items-center gap-2">
+                      <FlameIcon />
+                      <span>Store-Wide Promotional Campaign Controller</span>
+                    </h3>
+                    <div className="flex flex-col sm:flex-row items-center gap-4 text-xs">
+                      <label className="flex items-center gap-2 font-bold cursor-pointer">
+                        <input 
+                          type="checkbox" 
+                          checked={storeWideDiscount.active} 
+                          onChange={(e) => setStoreWideDiscount({ ...storeWideDiscount, active: e.target.checked })} 
+                          className="w-4 h-4 rounded text-emerald-600"
+                        />
+                        <span>Store-Wide Discount Active</span>
+                      </label>
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold">Discount %:</span>
+                        <select 
+                          value={storeWideDiscount.percentage} 
+                          onChange={(e) => setStoreWideDiscount({ ...storeWideDiscount, percentage: Number(e.target.value) })}
+                          className="p-1.5 border rounded-lg font-bold"
+                        >
+                          <option value="5">5% OFF</option>
+                          <option value="10">10% OFF</option>
+                          <option value="15">15% OFF</option>
+                          <option value="20">20% OFF</option>
+                        </select>
+                      </div>
+                      <span className="text-neutral-500 italic">Automatically discounts ALL items across catalog!</span>
+                    </div>
+                  </div>
+
+                  {/* 2. ADD PRODUCT WITH NATIVE FILE UPLOAD */}
+                  <div className="bg-white rounded-3xl p-6 border border-neutral-200 space-y-4 shadow-sm">
+                    <h3 className="font-black text-base text-neutral-900">Add New Formulation (Native File Upload)</h3>
+                    <form onSubmit={handleAddProduct} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                      <div>
+                        <label className="font-bold block mb-1">Formulation Name *</label>
+                        <input type="text" required placeholder="Liquid Name" value={newName} onChange={e => setNewName(e.target.value)} className="w-full p-2 bg-neutral-100 rounded-xl border" />
+                      </div>
+                      <div>
+                        <label className="font-bold block mb-1">Category</label>
+                        <select value={newCategory} onChange={e => setNewCategory(e.target.value)} className="w-full p-2 bg-neutral-100 rounded-xl border font-bold">
+                          <option value="Kitchen Degreasers & Stovetops">Kitchen Degreasers & Stovetops</option>
+                          <option value="Heavy-Duty Floor Cleaners">Heavy-Duty Floor Cleaners</option>
+                          <option value="Glass & Mirror Streak-Free Liquids">Glass & Mirror Streak-Free Liquids</option>
+                          <option value="Bathroom & Tile Cleaners">Bathroom & Tile Cleaners</option>
+                          <option value="Multi-Surface All-Purpose Liquids">Multi-Surface All-Purpose Liquids</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="font-bold block mb-1">Bottle Volume</label>
+                        <input type="text" placeholder="500ml / 1 Liter" value={newVolume} onChange={e => setNewVolume(e.target.value)} className="w-full p-2 bg-neutral-100 rounded-xl border" />
+                      </div>
+                      <div>
+                        <label className="font-bold block mb-1">Regular MRP (₹)</label>
+                        <input type="number" value={newRegPrice} onChange={e => setNewRegPrice(e.target.value)} className="w-full p-2 bg-neutral-100 rounded-xl border" />
+                      </div>
+                      <div>
+                        <label className="font-bold text-emerald-700 block mb-1">Offer Price (₹)</label>
+                        <input type="number" required value={newOfferPrice} onChange={e => setNewOfferPrice(e.target.value)} className="w-full p-2 bg-neutral-100 rounded-xl border font-bold" />
+                      </div>
+
+                      {/* File Upload Input */}
+                      <div className="lg:col-span-3 bg-neutral-50 p-4 rounded-2xl border-2 border-dashed border-neutral-300">
+                        <label className="font-bold block mb-1">Upload Product Image (From Device - No Link Needed) *</label>
+                        {uploadedImage ? (
+                          <div className="flex items-center gap-3">
+                            <img src={uploadedImage} alt="Uploaded" className="w-14 h-14 rounded-xl object-cover" />
+                            <span className="font-bold text-neutral-800">{uploadedName}</span>
+                            <button type="button" onClick={() => setUploadedImage("")} className="text-red-500 font-bold ml-auto">Remove</button>
+                          </div>
+                        ) : (
+                          <input type="file" accept="image/*" onChange={handleFileUpload} className="text-xs" />
+                        )}
+                      </div>
+
+                      <div className="lg:col-span-4 flex justify-end">
+                        <button type="submit" className="bg-emerald-600 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-emerald-700">
+                          Publish Listing
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  {/* 3. INVENTORY TABLE WITH INDIVIDUAL PRODUCT DISCOUNT MODIFIERS */}
+                  <div className="bg-white rounded-3xl p-6 border border-neutral-200 space-y-4 shadow-sm overflow-hidden">
+                    <h3 className="font-black text-base text-neutral-900">Inventory Stock & Individual Discounts</h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left text-xs">
+                        <thead className="bg-neutral-50 text-neutral-500 uppercase font-bold">
+                          <tr>
+                            <th className="p-3">Product</th>
+                            <th className="p-3">Volume</th>
+                            <th className="p-3">MRP</th>
+                            <th className="p-3">Individual Discount</th>
+                            <th className="p-3">Offer Price</th>
+                            <th className="p-3">Stock Units</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-neutral-100">
+                          {products.map(p => {
+                            const disc = Math.round(((p.regularPrice - p.offerPrice) / p.regularPrice) * 100);
+                            return (
+                              <tr key={p.id}>
+                                <td className="p-3 font-bold flex items-center gap-2">
+                                  <img src={p.images[0]} alt={p.name} className="w-8 h-8 rounded-lg object-cover" />
+                                  <span>{p.name}</span>
+                                </td>
+                                <td className="p-3">{p.volume}</td>
+                                <td className="p-3 text-neutral-400 line-through">₹{p.regularPrice}</td>
+                                <td className="p-3">
+                                  <select 
+                                    value={disc} 
+                                    onChange={(e) => {
+                                      const d = Number(e.target.value);
+                                      const newOff = Math.round(p.regularPrice * (1 - d / 100));
+                                      setProducts(products.map(x => x.id === p.id ? { ...x, offerPrice: newOff } : x));
+                                    }}
+                                    className="p-1 border rounded bg-emerald-50 text-emerald-800 font-bold"
+                                  >
+                                    <option value="0">0% OFF</option>
+                                    <option value="10">10% OFF</option>
+                                    <option value="20">20% OFF</option>
+                                    <option value="25">25% OFF</option>
+                                    <option value="30">30% OFF</option>
+                                    <option value="40">40% OFF</option>
+                                  </select>
+                                </td>
+                                <td className="p-3 font-black text-emerald-800">₹{p.offerPrice}</td>
+                                <td className="p-3">
+                                  <input 
+                                    type="number" 
+                                    value={p.stock} 
+                                    onChange={(e) => setProducts(products.map(x => x.id === p.id ? { ...x, stock: Number(e.target.value) } : x))}
+                                    className="w-16 p-1 border rounded bg-neutral-50 text-center font-bold" 
+                                  />
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* 4. CUSTOMER ORDERS & SALES ANALYTICS (WEEK, MONTH, YEAR & EXCEL EXPORT) */}
+                  <div className="bg-white rounded-3xl p-6 border border-neutral-200 shadow-sm space-y-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-100">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[10px] font-black uppercase text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                            Sales Ledger
+                          </span>
+                          <span className="text-xs text-neutral-400 font-bold">&bull; Dynamic Excel Exporter</span>
+                        </div>
+                        <h3 className="font-black text-xl text-neutral-900">Customer Orders & Period Analytics</h3>
+                        <p className="text-xs text-neutral-500">Track orders across week, month, year, or custom date ranges and export to Excel (.csv).</p>
+                      </div>
+
+                      <button
+                        onClick={downloadExcelReport}
+                        disabled={filteredOrders.length === 0}
+                        className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black transition cursor-pointer shadow-sm ${
+                          filteredOrders.length === 0
+                            ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
+                            : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-200'
+                        }`}
+                      >
+                        <SpreadsheetIcon />
+                        <span>Download Excel Report (.csv)</span>
+                        <span className="bg-emerald-800/60 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">
+                          {filteredOrders.length}
+                        </span>
+                      </button>
+                    </div>
+
+                    {/* 4 Period KPI Metric Cards */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                      {/* Week */}
+                      <div 
+                        onClick={() => setOrderPeriodFilter('week')}
+                        className={`p-4 rounded-2xl border transition cursor-pointer ${
+                          orderPeriodFilter === 'week' 
+                            ? 'bg-emerald-50 border-emerald-400 ring-2 ring-emerald-500/20' 
+                            : 'bg-neutral-50 border-neutral-200 hover:border-emerald-300'
+                        }`}
+                      >
+                        <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 block">This Week</span>
+                        <p className="text-2xl font-black text-neutral-900 mt-1">{orderAnalytics.week.count} <span className="text-xs text-neutral-400 font-normal">Orders</span></p>
+                        <div className="flex items-center justify-between mt-2 pt-2 border-t border-neutral-200/60 text-[11px]">
+                          <span className="text-neutral-500">{orderAnalytics.week.units} Units</span>
+                          <span className="font-black text-emerald-700">₹{orderAnalytics.week.revenue}</span>
+                        </div>
+                      </div>
+
+                      {/* Month */}
+                      <div 
+                        onClick={() => setOrderPeriodFilter('month')}
+                        className={`p-4 rounded-2xl border transition cursor-pointer ${
+                          orderPeriodFilter === 'month' 
+                            ? 'bg-emerald-50 border-emerald-400 ring-2 ring-emerald-500/20' 
+                            : 'bg-neutral-50 border-neutral-200 hover:border-emerald-300'
+                        }`}
+                      >
+                        <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 block">This Month</span>
+                        <p className="text-2xl font-black text-neutral-900 mt-1">{orderAnalytics.month.count} <span className="text-xs text-neutral-400 font-normal">Orders</span></p>
+                        <div className="flex items-center justify-between mt-2 pt-2 border-t border-neutral-200/60 text-[11px]">
+                          <span className="text-neutral-500">{orderAnalytics.month.units} Units</span>
+                          <span className="font-black text-emerald-700">₹{orderAnalytics.month.revenue}</span>
+                        </div>
+                      </div>
+
+                      {/* Year */}
+                      <div 
+                        onClick={() => setOrderPeriodFilter('year')}
+                        className={`p-4 rounded-2xl border transition cursor-pointer ${
+                          orderPeriodFilter === 'year' 
+                            ? 'bg-emerald-50 border-emerald-400 ring-2 ring-emerald-500/20' 
+                            : 'bg-neutral-50 border-neutral-200 hover:border-emerald-300'
+                        }`}
+                      >
+                        <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 block">This Year (2026)</span>
+                        <p className="text-2xl font-black text-neutral-900 mt-1">{orderAnalytics.year.count} <span className="text-xs text-neutral-400 font-normal">Orders</span></p>
+                        <div className="flex items-center justify-between mt-2 pt-2 border-t border-neutral-200/60 text-[11px]">
+                          <span className="text-neutral-500">{orderAnalytics.year.units} Units</span>
+                          <span className="font-black text-emerald-700">₹{orderAnalytics.year.revenue}</span>
+                        </div>
+                      </div>
+
+                      {/* Filtered View */}
+                      <div className="p-4 rounded-2xl bg-neutral-900 text-white shadow">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-emerald-400 block">Active Filter Overview</span>
+                        <p className="text-2xl font-black text-white mt-1">{filteredStats.count} <span className="text-xs text-neutral-400 font-normal">Orders</span></p>
+                        <div className="flex items-center justify-between mt-2 pt-2 border-t border-neutral-800 text-[11px] text-neutral-300">
+                          <span>Revenue: <strong className="text-emerald-400">₹{filteredStats.revenue}</strong></span>
+                          <span>{filteredStats.units} units</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Filter Toolbar */}
+                    <div className="space-y-3 bg-neutral-50 p-4 rounded-2xl border border-neutral-200">
+                      <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
+                        <div className="flex flex-wrap items-center gap-1.5 bg-white p-1 rounded-xl border border-neutral-200">
+                          <button
+                            onClick={() => setOrderPeriodFilter('all')}
+                            className={`px-3 py-1.5 rounded-lg font-bold transition ${
+                              orderPeriodFilter === 'all' ? 'bg-neutral-900 text-white' : 'text-neutral-600 hover:text-neutral-900'
+                            }`}
+                          >
+                            All ({orders.length})
+                          </button>
+                          <button
+                            onClick={() => setOrderPeriodFilter('week')}
+                            className={`px-3 py-1.5 rounded-lg font-bold transition ${
+                              orderPeriodFilter === 'week' ? 'bg-emerald-600 text-white' : 'text-neutral-600 hover:text-neutral-900'
+                            }`}
+                          >
+                            Week ({orderAnalytics.week.count})
+                          </button>
+                          <button
+                            onClick={() => setOrderPeriodFilter('month')}
+                            className={`px-3 py-1.5 rounded-lg font-bold transition ${
+                              orderPeriodFilter === 'month' ? 'bg-emerald-600 text-white' : 'text-neutral-600 hover:text-neutral-900'
+                            }`}
+                          >
+                            Month ({orderAnalytics.month.count})
+                          </button>
+                          <button
+                            onClick={() => setOrderPeriodFilter('year')}
+                            className={`px-3 py-1.5 rounded-lg font-bold transition ${
+                              orderPeriodFilter === 'year' ? 'bg-emerald-600 text-white' : 'text-neutral-600 hover:text-neutral-900'
+                            }`}
+                          >
+                            Year ({orderAnalytics.year.count})
+                          </button>
+                          <button
+                            onClick={() => setOrderPeriodFilter('custom')}
+                            className={`px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1 ${
+                              orderPeriodFilter === 'custom' ? 'bg-neutral-900 text-white' : 'text-neutral-600 hover:text-neutral-900'
+                            }`}
+                          >
+                            <CalendarIcon />
+                            <span>Custom Range</span>
+                          </button>
+                        </div>
+
+                        {orderPeriodFilter !== 'all' && (
+                          <button
+                            onClick={() => {
+                              setOrderPeriodFilter('all');
+                              setCustomStartDate('');
+                              setCustomEndDate('');
+                            }}
+                            className="text-neutral-500 hover:text-neutral-800 font-bold underline"
+                          >
+                            Reset Filter
+                          </button>
+                        )}
+                      </div>
+
+                      {orderPeriodFilter === 'custom' && (
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center pt-2 border-t border-neutral-200 text-xs">
+                          <div>
+                            <label className="font-bold block mb-1">From Date</label>
+                            <input 
+                              type="date" 
+                              value={customStartDate} 
+                              onChange={e => setCustomStartDate(e.target.value)} 
+                              className="w-full p-2 bg-white rounded-lg border font-bold" 
+                            />
+                          </div>
+                          <div>
+                            <label className="font-bold block mb-1">To Date</label>
+                            <input 
+                              type="date" 
+                              value={customEndDate} 
+                              onChange={e => setCustomEndDate(e.target.value)} 
+                              className="w-full p-2 bg-white rounded-lg border font-bold" 
+                            />
+                          </div>
+                          <div className="sm:pt-5">
+                            <button
+                              type="button"
+                              onClick={() => { setCustomStartDate(''); setCustomEndDate(''); }}
+                              className="px-3 py-2 bg-white border rounded-lg font-bold hover:bg-neutral-100"
+                            >
+                              Clear Dates
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Orders Table */}
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left text-xs">
+                        <thead className="bg-neutral-50 text-neutral-500 uppercase font-bold border-b">
+                          <tr>
+                            <th className="p-3">Order ID & Date</th>
+                            <th className="p-3">Customer</th>
+                            <th className="p-3">Ordered Liquids & Categories</th>
+                            <th className="p-3">Total Amount</th>
+                            <th className="p-3">Payment</th>
+                            <th className="p-3">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-neutral-100">
+                          {filteredOrders.length === 0 ? (
+                            <tr>
+                              <td colSpan="6" className="p-8 text-center text-neutral-400 font-bold">
+                                No orders found in selected date range.
+                              </td>
+                            </tr>
+                          ) : (
+                            filteredOrders.map(o => (
+                              <tr key={o.orderId} className="hover:bg-neutral-50/50">
+                                <td className="p-3">
+                                  <span className="font-black text-neutral-900 block font-mono">#{o.orderId}</span>
+                                  <span className="text-[10px] text-neutral-400 block">{o.date}</span>
+                                </td>
+                                <td className="p-3">
+                                  <span className="font-bold text-neutral-800 block">{o.customerName}</span>
+                                  <span className="text-[11px] text-neutral-500 block">{o.phone}</span>
+                                  <span className="text-[10px] text-neutral-400 block max-w-xs truncate">{o.address}</span>
+                                </td>
+                                <td className="p-3">
+                                  {Array.isArray(o.items) ? (
+                                    <ul className="space-y-1">
+                                      {o.items.map((it, idx) => (
+                                        <li key={idx} className="text-neutral-700">
+                                          <strong>{it.qty}x</strong> {it.name} <span className="text-[10px] text-neutral-400">({it.volume})</span>
+                                          <span className="block text-[9px] text-emerald-700 font-semibold">{it.category}</span>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  ) : (
+                                    <span>{o.items}</span>
+                                  )}
+                                </td>
+                                <td className="p-3 font-black text-emerald-800 text-sm">
+                                  ₹{o.total}
+                                </td>
+                                <td className="p-3 text-neutral-600 font-medium">
+                                  {o.paymentMethod || "Prepaid"}
+                                </td>
+                                <td className="p-3">
+                                  <select
+                                    value={o.status}
+                                    onChange={(e) => {
+                                      const st = e.target.value;
+                                      setOrders(orders.map(x => x.orderId === o.orderId ? { ...x, status: st } : x));
+                                      showToast(`Order #${o.orderId} status set to ${st}`);
+                                    }}
+                                    className={`p-1 rounded border font-bold text-xs ${
+                                      o.status === 'Delivered' 
+                                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
+                                        : (o.status === 'Dispatched' ? 'bg-blue-50 text-blue-800 border-blue-200' : 'bg-amber-50 text-amber-800 border-amber-200')
+                                    }`}
+                                  >
+                                    <option value="Pending">Pending</option>
+                                    <option value="Packed">Packed</option>
+                                    <option value="Dispatched">Dispatched</option>
+                                    <option value="Delivered">Delivered</option>
+                                  </select>
+                                </td>
+                              </tr>
+                            ))
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {/* Spreadsheet Info Bar */}
+                    <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-neutral-600">
+                      <div>
+                        <strong>Export Columns:</strong> Row #, Order ID, Sale Date, Product Name, Category Name, Bottle Volume, Unit Price, Units Bought, Item Subtotal, Grand Total, Customer & Shipping Info.
+                      </div>
+                      <button
+                        onClick={downloadExcelReport}
+                        disabled={filteredOrders.length === 0}
+                        className="text-emerald-700 font-bold hover:underline inline-flex items-center gap-1 cursor-pointer self-start sm:self-auto"
+                      >
+                        <DownloadIcon />
+                        <span>Export ({filteredOrders.length} orders) to Excel</span>
+                      </button>
+                    </div>
+
+                  </div>
+
+                </div>
+              )
+            )}
+
+          </main>
+
+          {/* FOOTER */}
+          <footer className="bg-neutral-900 text-neutral-400 text-xs py-8 px-4 text-center border-t border-neutral-800 mt-12">
+            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="font-bold text-white">KesavaCleaning Pvt Ltd &bull; 2026</span>
+              <span>Pure Liquid Formulations &bull; Engineered in India</span>
+              <button onClick={() => setCurrentRoute('/admin')} className="text-emerald-400 hover:underline">
+                Admin Terminal
+              </button>
+            </div>
+          </footer>
+
+          {/* AUTHENTICATION MODAL (LOGIN & SIGN UP) */}
+          {authModalOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+              <div className="bg-white rounded-3xl p-6 max-w-sm w-full space-y-4 shadow-2xl border border-neutral-200">
+                <div className="flex justify-between items-center pb-2 border-b">
+                  <div>
+                    <h3 className="font-black text-lg text-neutral-900">
+                      {authMode === 'login' ? 'Customer Sign In' : 'Create Customer Account'}
+                    </h3>
+                    <p className="text-[11px] text-neutral-500">
+                      {authMode === 'login' ? 'Enter your credentials to continue' : 'Sign up to purchase and track dispatches'}
+                    </p>
+                  </div>
+                  <button onClick={() => setAuthModalOpen(false)} className="text-neutral-400 hover:text-neutral-700 font-bold">✕</button>
+                </div>
+
+                {authMode === 'login' ? (
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    const found = users.find(u => u.email.toLowerCase() === regEmail.trim().toLowerCase() && u.password === regPass.trim());
+                    if (found) {
+                      setCurrentUser(found);
+                      setAuthModalOpen(false);
+                      showToast(`Welcome back, ${found.name}!`);
+                      setRegEmail("");
+                      setRegPass("");
+                    } else {
+                      alert("Invalid credentials. Please check your email or password.");
+                    }
+                  }} className="space-y-3 text-xs">
+                    <div>
+                      <label className="font-bold block mb-1">Email Address</label>
+                      <input 
+                        type="email" 
+                        required 
+                        placeholder="e.g. priya@example.com" 
+                        value={regEmail} 
+                        onChange={e => setRegEmail(e.target.value)} 
+                        className="w-full p-2.5 border rounded-xl bg-neutral-50 font-bold" 
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold block mb-1">Password</label>
+                      <input 
+                        type="password" 
+                        required 
+                        placeholder="••••••••" 
+                        value={regPass} 
+                        onChange={e => setRegPass(e.target.value)} 
+                        className="w-full p-2.5 border rounded-xl bg-neutral-50" 
+                      />
+                    </div>
+                    <button type="submit" className="w-full py-3 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 shadow-md shadow-emerald-200">
+                      Sign In to Account
+                    </button>
+                    <div className="text-center pt-2 border-t">
+                      <span className="text-neutral-500 text-[11px]">Don't have an account? </span>
+                      <button 
+                        type="button" 
+                        onClick={() => setAuthMode('signup')} 
+                        className="text-emerald-700 font-black hover:underline text-[11px]"
+                      >
+                        Register Now
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    const newUser = {
+                      id: `u-${Date.now()}`,
+                      name: regName,
+                      email: regEmail,
+                      password: regPass,
+                      phone: regPhone,
+                      role: "customer",
+                      address: "Bengaluru, Karnataka"
+                    };
+                    setUsers([...users, newUser]);
+                    setCurrentUser(newUser);
+                    setAuthModalOpen(false);
+                    showToast(`Account created! Logged in as ${newUser.name}`);
+                    setRegName("");
+                    setRegEmail("");
+                    setRegPass("");
+                    setRegPhone("");
+                  }} className="space-y-3 text-xs">
+                    <div>
+                      <label className="font-bold block mb-1">Full Name</label>
+                      <input 
+                        type="text" 
+                        required 
+                        placeholder="e.g. Rajesh Kumar" 
+                        value={regName} 
+                        onChange={e => setRegName(e.target.value)} 
+                        className="w-full p-2 border rounded-xl bg-neutral-50 font-bold" 
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold block mb-1">Email</label>
+                      <input 
+                        type="email" 
+                        required 
+                        placeholder="rajesh@example.com" 
+                        value={regEmail} 
+                        onChange={e => setRegEmail(e.target.value)} 
+                        className="w-full p-2 border rounded-xl bg-neutral-50 font-bold" 
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold block mb-1">Mobile Phone</label>
+                      <input 
+                        type="tel" 
+                        required 
+                        placeholder="+91 98765 43210" 
+                        value={regPhone} 
+                        onChange={e => setRegPhone(e.target.value)} 
+                        className="w-full p-2 border rounded-xl bg-neutral-50 font-bold" 
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold block mb-1">Password</label>
+                      <input 
+                        type="password" 
+                        required 
+                        placeholder="••••••••" 
+                        value={regPass} 
+                        onChange={e => setRegPass(e.target.value)} 
+                        className="w-full p-2 border rounded-xl bg-neutral-50" 
+                      />
+                    </div>
+                    <button type="submit" className="w-full py-3 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 shadow-md shadow-emerald-200">
+                      Complete Registration
+                    </button>
+                    <div className="text-center pt-2 border-t">
+                      <span className="text-neutral-500 text-[11px]">Already have an account? </span>
+                      <button 
+                        type="button" 
+                        onClick={() => setAuthMode('login')} 
+                        className="text-emerald-700 font-black hover:underline text-[11px]"
+                      >
+                        Sign In
+                      </button>
+                    </div>
+                  </form>
+                )}
+
+              </div>
+            </div>
+          )}
+
+          {/* FLOATING TOAST NOTIFICATION */}
+          {toast && (
+            <div className="fixed bottom-6 right-6 z-50 bg-neutral-900 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-2xl border border-neutral-700 animate-bounce">
+              {toast}
+            </div>
+          )}
+
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

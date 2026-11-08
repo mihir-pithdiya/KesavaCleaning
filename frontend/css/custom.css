@@ -1,0 +1,68 @@
+/* Kesava Cleaning - Custom Enhancements & Animations */
+
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(45, 122, 88, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.marble-gradient {
+  background: linear-gradient(135deg, #fdfbf7 0%, #f4f0e8 50%, #eae5da 100%);
+}
+
+/* Before / After Slider Thumb */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #2D7A58;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  cursor: ew-resize;
+}
+
+input[type=range]::-moz-range-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #2D7A58;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  cursor: ew-resize;
+}
+
+/* Glassmorphism Accents */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(236, 231, 222, 0.8);
+}
+
+.dark-glass-panel {
+  background: rgba(23, 54, 41, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(45, 122, 88, 0.3);
+}
+
+/* Smooth Transitions */
+.smooth-fade {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modal animation */
+dialog[open] {
+  animation: modalFadeIn 0.2s ease-out forwards;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

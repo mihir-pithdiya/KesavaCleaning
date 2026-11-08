@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kesava Cleaning™ — Tough on Grime. Gentle on the Planet.</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/custom.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            brand: {
+              50: '#F2F9F5',
+              100: '#E2F3E9',
+              200: '#C4E6D2',
+              300: '#97D2AF',
+              400: '#62B887',
+              500: '#2D7A58', // Primary Botanical Mint/Forest
+              600: '#246548',
+              700: '#1F513B',
+              800: '#1C4232',
+              900: '#173629',
+            },
+            earth: {
+              sand: '#F7F5F0',
+              clay: '#ECE7DE',
+              stone: '#8E8B82',
+              dark: '#1C201E',
+            }
+          },
+          boxShadow: {
+            'soft': '0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 5px 15px -5px rgba(0, 0, 0, 0.02)',
+            'float': '0 20px 40px -10px rgba(45, 122, 88, 0.12)',
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#FCFCFA] text-earth-dark font-sans antialiased overflow-x-hidden selection:bg-brand-200 selection:text-brand-900">
+
+  <!-- Top Announcement Bar -->
+  <aside aria-label="Announcement" class="bg-brand-900 text-brand-100 text-xs sm:text-sm py-2 px-4 text-center font-medium tracking-wide flex items-center justify-center gap-2">
+    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-brand-500 text-white">EARTH MONTH</span>
+    <span>Free Forever Glass Spray Bottle with all starter bundles &amp; 15% off recurring cleanings!</span>
+    <a href="#products" class="underline underline-offset-4 hover:text-white font-semibold transition ml-1">Claim Offer &rarr;</a>
+  </aside>
+
+  <!-- Sticky Navbar -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-earth-clay/60 transition-all duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo: Kesava Cleaning -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-brand-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform duration-200">
+          <i data-lucide="sparkles" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="text-2xl font-extrabold tracking-tight text-earth-dark">Kesava<span class="text-brand-500">Cleaning</span></span>
+          <span class="block text-[10px] tracking-widest uppercase font-semibold text-earth-stone -mt-1">Botanical Formulations &bull; Eco Services</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center space-x-7 text-sm font-semibold text-earth-dark/80">
+        <a href="#services" class="hover:text-brand-500 transition-colors">Cleaning Services</a>
+        <a href="#products" class="hover:text-brand-500 transition-colors">Products &amp; Refills</a>
+        <a href="#surface-demo" class="hover:text-brand-500 transition-colors">Surface Guide</a>
+        <a href="#ingredients" class="hover:text-brand-500 transition-colors">Ingredients</a>
+        <a href="#reviews" class="hover:text-brand-500 transition-colors">Reviews</a>
+        <a href="#faq" class="hover:text-brand-500 transition-colors">FAQ</a>
+      </nav>
+
+      <!-- Right Header Actions (Auth, Cart, Book Now CTA) -->
+      <div class="flex items-center gap-3">
+        
+        <!-- Authentication Section in Header -->
+        <div id="authGuestSection" class="flex items-center">
+          <button class="open-auth-modal-btn inline-flex items-center gap-1.5 text-xs font-bold text-earth-dark hover:text-brand-600 px-3 py-2 rounded-full border border-earth-clay hover:border-brand-300 transition" data-auth-mode="login">
+            <i data-lucide="user" class="w-3.5 h-3.5 text-brand-600"></i>
+            <span>Sign In</span>
+          </button>
+        </div>
+
+        <!-- Logged-in User Dropdown -->
+        <div id="authUserSection" class="relative hidden">
+          <button id="userMenuBtn" class="flex items-center gap-2 p-1.5 pr-3 rounded-full bg-brand-50 hover:bg-brand-100 border border-brand-200 transition">
+            <div class="w-7 h-7 rounded-full bg-brand-500 text-white flex items-center justify-center text-xs font-extrabold" id="userAvatarText">
+              KC
+            </div>
+            <span class="text-xs font-bold text-brand-900 max-w-[100px] truncate" id="userNameLabel">Account</span>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-brand-700"></i>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div id="userDropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-earth-clay p-2 z-50 text-xs">
+            <div class="px-3 py-2 border-b border-earth-clay/60">
+              <p class="font-bold text-earth-dark truncate" id="userEmailLabel">user@example.com</p>
+              <span class="inline-block px-2 py-0.5 mt-1 rounded bg-brand-100 text-brand-800 text-[10px] font-bold">Verified Member</span>
+            </div>
+            <button id="openDashboardBtn" class="w-full text-left px-3 py-2 rounded-xl hover:bg-earth-sand text-earth-dark font-medium flex items-center gap-2 mt-1">
+              <i data-lucide="layout-dashboard" class="w-4 h-4 text-brand-600"></i>
+              <span>My Appointments &amp; Orders</span>
+            </button>
+            <button onclick="booking.openBookingModal()" class="w-full text-left px-3 py-2 rounded-xl hover:bg-earth-sand text-earth-dark font-medium flex items-center gap-2">
+              <i data-lucide="calendar-plus" class="w-4 h-4 text-brand-600"></i>
+              <span>Schedule New Clean</span>
+            </button>
+            <button id="logoutBtn" class="w-full text-left px-3 py-2 rounded-xl hover:bg-red-50 text-red-600 font-semibold flex items-center gap-2 mt-1 border-t border-earth-clay/50">
+              <i data-lucide="log-out" class="w-4 h-4"></i>
+              <span>Sign Out</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Cart Button -->
+        <button id="openCartBtn" class="relative inline-flex items-center justify-center p-2.5 rounded-full bg-earth-sand hover:bg-brand-50 text-earth-dark hover:text-brand-500 border border-earth-clay transition duration-200" title="View Cart">
+          <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+          <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-brand-500 text-white text-[11px] font-bold rounded-full h-5 w-5 flex items-center justify-center ring-2 ring-white">1</span>
+        </button>
+
+        <!-- CTA: Book Cleaning Service -->
+        <button onclick="booking.openBookingModal()" class="hidden sm:inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-full shadow-md shadow-brand-500/20 transition-all transform hover:-translate-y-0.5">
+          <i data-lucide="calendar" class="w-4 h-4"></i>
+          <span>Book a Clean</span>
+        </button>
+
+        <!-- Mobile hamburger -->
+        <button id="mobileMenuBtn" class="lg:hidden p-2 text-earth-dark rounded-lg hover:bg-earth-sand">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Dropdown -->
+    <div id="mobileMenu" class="hidden lg:hidden border-b border-earth-clay bg-white px-6 py-5 space-y-4 shadow-lg">
+      <a href="#services" class="block text-base font-semibold text-earth-dark hover:text-brand-500 mobile-nav-link">Cleaning Services</a>
+      <a href="#products" class="block text-base font-semibold text-earth-dark hover:text-brand-500 mobile-nav-link">Products &amp; Refills</a>
+      <a href="#surface-demo" class="block text-base font-semibold text-earth-dark hover:text-brand-500 mobile-nav-link">Surface Guide</a>
+      <a href="#ingredients" class="block text-base font-semibold text-earth-dark hover:text-brand-500 mobile-nav-link">Ingredients</a>
+      <a href="#reviews" class="block text-base font-semibold text-earth-dark hover:text-brand-500 mobile-nav-link">Reviews</a>
+      <a href="#faq" class="block text-base font-semibold text-earth-dark hover:text-brand-500 mobile-nav-link">FAQ</a>
+      <div class="pt-2 space-y-2">
+        <button id="mobileAuthLink" class="w-full text-center flex items-center justify-center gap-2 bg-earth-sand border border-earth-clay text-earth-dark font-bold py-2.5 rounded-xl">
+          <i data-lucide="log-in" class="w-4 h-4"></i> Sign In / Register
+        </button>
+        <button onclick="booking.openBookingModal()" class="w-full text-center flex items-center justify-center gap-2 bg-brand-500 text-white font-bold py-3 rounded-xl shadow-md">
+          <i data-lucide="calendar" class="w-4 h-4"></i> Book Cleaning Appointment
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. Hero Section -->
+    <section class="relative overflow-hidden pt-8 pb-20 lg:pt-16 lg:pb-28 bg-gradient-to-b from-brand-50/50 via-white to-earth-sand/30">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          <!-- Hero Copy -->
+          <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-100 border border-brand-200 text-brand-800 text-xs font-bold tracking-wide uppercase">
+              <i data-lucide="leaf" class="w-3.5 h-3.5 text-brand-600"></i>
+              <span>Next-Gen Bio-Enzyme Technology &bull; Kesava Cleaning</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-earth-dark leading-[1.12]">
+              Tough on Grime. <br/>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 via-brand-600 to-emerald-700">Gentle on the Planet.</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-earth-stone max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+              Experience the dual power of <strong>Kesava Cleaning</strong>: professional eco-cleaning services for homes and offices, paired with cold-pressed botanical refillable formulations. Dissolves stubborn grease with zero toxic vapors, zero microplastics, and 100% pet and infant safety.
+            </p>
+
+            <!-- Dual CTAs -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <button onclick="booking.openBookingModal()" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-500 hover:bg-brand-600 text-white font-bold text-base px-8 py-4 rounded-full shadow-lg shadow-brand-500/30 hover:shadow-brand-500/40 transition transform hover:-translate-y-0.5">
+                <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                <span>Book a Cleaning Service</span>
+              </button>
+
+              <a href="#products" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white hover:bg-earth-sand text-earth-dark font-semibold text-base px-7 py-4 rounded-full border border-earth-clay shadow-sm hover:border-brand-300 transition">
+                <i data-lucide="shopping-bag" class="w-5 h-5 text-brand-600"></i>
+                <span>Shop Starter Refill Kits</span>
+              </a>
+
+              <button id="openVideoModalBtn" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-xs font-bold text-earth-stone hover:text-brand-600 py-3 px-4">
+                <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-brand-600 translate-x-0.5"></i>
+                </span>
+                <span>Watch Lab Demo</span>
+              </button>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="pt-6 border-t border-earth-clay/80 grid grid-cols-2 sm:grid-cols-4 gap-4 text-left">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center shrink-0">
+                  <i data-lucide="sprout" class="w-4 h-4"></i>
+                </div>
+                <span class="text-xs font-bold text-earth-dark leading-tight">100% Plant Based</span>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center shrink-0">
+                  <i data-lucide="wind" class="w-4 h-4"></i>
+                </div>
+                <span class="text-xs font-bold text-earth-dark leading-tight">Zero Harsh Fumes</span>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center shrink-0">
+                  <i data-lucide="shield-check" class="w-4 h-4"></i>
+                </div>
+                <span class="text-xs font-bold text-earth-dark leading-tight">Pet &amp; Baby Safe</span>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center shrink-0">
+                  <i data-lucide="heart" class="w-4 h-4"></i>
+                </div>
+                <span class="text-xs font-bold text-earth-dark leading-tight">Leaping Bunny Certified</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Realistic Bottle Showcase Simulation -->
+          <div class="lg:col-span-5 relative flex justify-center">
+            <div class="absolute -inset-4 bg-gradient-to-tr from-brand-300/30 to-amber-100/40 rounded-full blur-3xl opacity-70 -z-10"></div>
+            
+            <div class="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 border border-earth-clay shadow-soft marble-gradient">
+              <!-- Floating Rating Pill -->
+              <div class="absolute -top-4 -left-4 sm:left-4 bg-white/95 backdrop-blur px-4 py-2.5 rounded-2xl shadow-lg border border-earth-clay flex items-center gap-3">
+                <div class="flex text-amber-400">
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                </div>
+                <span class="text-xs font-bold text-earth-dark">4.9/5 from 3.2k reviews</span>
+              </div>
+
+              <!-- Refill Pouch badge -->
+              <div class="absolute -bottom-3 right-6 bg-brand-900 text-white px-3.5 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-2">
+                <i data-lucide="repeat" class="w-3.5 h-3.5 text-brand-300"></i>
+                <span>Kesava Zero-Plastic System</span>
+              </div>
+
+              <!-- Rendered Visual: Kesava Cleaning Flask on Marble -->
+              <div class="py-6 flex flex-col items-center">
+                <div class="relative group">
+                  <svg width="220" height="380" viewBox="0 0 220 380" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-2xl transition-transform duration-300 hover:scale-[1.02]">
+                    <!-- Spray Trigger Top -->
+                    <path d="M95 35 H125 V70 H95 Z" fill="#2C3531" />
+                    <path d="M125 45 C145 45 165 42 178 30 C182 26 188 32 184 40 C176 58 160 68 125 70 Z" fill="#1C201E" />
+                    <path d="M85 45 C75 45 60 52 50 62 C48 64 45 62 46 58 C50 48 65 38 85 36 Z" fill="#2C3531" />
+                    <path d="M132 70 Q145 105 130 120 Q122 115 125 75 Z" fill="#1C201E" />
+                    <rect x="86" y="70" width="48" height="18" rx="4" fill="#3E4C47" />
+                    
+                    <!-- Frosted Amber/Green Glass Body -->
+                    <path d="M90 88 C70 105 50 135 50 170 V330 C50 350 65 365 85 365 H135 C155 365 170 350 170 330 V170 C170 135 150 105 130 88 Z" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.6)" stroke-width="2" />
+                    
+                    <!-- Liquid Level Inside -->
+                    <path d="M53 210 C80 215 140 205 167 210 V325 C167 345 155 360 135 360 H85 C65 360 53 345 53 325 Z" fill="url(#liquidGrad)" opacity="0.85" />
+                    
+                    <!-- Minimalist Kesava Cleaning Label -->
+                    <rect x="68" y="160" width="84" height="135" rx="6" fill="#FAF8F5" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.15))" />
+                    <rect x="78" y="175" width="28" height="4" rx="2" fill="#2D7A58" />
+                    <text x="78" y="200" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="11" fill="#1C201E">Kesava</text>
+                    <text x="78" y="212" font-family="'Plus Jakarta Sans', sans-serif" font-size="6" font-weight="700" fill="#2D7A58" letter-spacing="1">CLEANING LABS</text>
+                    
+                    <line x1="78" y1="222" x2="142" y2="222" stroke="#E2DCD2" stroke-width="1" />
+                    
+                    <text x="78" y="234" font-family="'Plus Jakarta Sans', sans-serif" font-size="6" fill="#5A605D">NO. 01 — BOTANICAL</text>
+                    <text x="78" y="244" font-family="'Plus Jakarta Sans', sans-serif" font-size="6.5" font-weight="700" fill="#1C201E">Eucalyptus &amp; Mint</text>
+                    <text x="78" y="256" font-family="'Plus Jakarta Sans', sans-serif" font-size="5.5" fill="#7A807D">Plant-derived bio-enzymes</text>
+                    <text x="78" y="264" font-family="'Plus Jakarta Sans', sans-serif" font-size="5.5" fill="#7A807D">Safe for pets &amp; infants</text>
+
+                    <rect x="78" y="275" width="64" height="12" rx="3" fill="#E8F5E9" />
+                    <text x="110" y="283.5" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="5.5" font-weight="700" fill="#1F513B">500 ML (16.9 FL OZ)</text>
+
+                    <!-- Glass Highlights -->
+                    <path d="M58 170 Q54 260 58 330" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.6" />
+                    <path d="M162 170 Q166 260 162 330" stroke="white" stroke-width="1" opacity="0.3" />
+
+                    <!-- Gradients -->
+                    <defs>
+                      <linearGradient id="glassGrad" x1="50" y1="88" x2="170" y2="365" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#486055" stop-opacity="0.95" />
+                        <stop offset="0.5" stop-color="#2D4A3E" stop-opacity="0.9" />
+                        <stop offset="1" stop-color="#1B3128" stop-opacity="0.98" />
+                      </linearGradient>
+                      <linearGradient id="liquidGrad" x1="110" y1="210" x2="110" y2="360" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#93C5AE" stop-opacity="0.7" />
+                        <stop offset="1" stop-color="#55997A" stop-opacity="0.85" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="mt-2 text-center">
+                  <p class="text-sm font-bold text-earth-dark">Kesava Heavy Borosilicate Glass Flask</p>
+                  <p class="text-xs text-earth-stone">Shown on honed Carrara marble in morning light</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Social Proof & Stats Bar -->
+    <section class="border-y border-earth-clay bg-white py-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center divide-y lg:divide-y-0 lg:divide-x divide-earth-clay/70">
+          <div class="pt-4 lg:pt-0">
+            <p class="text-3xl sm:text-4xl font-extrabold text-brand-600">50,000+</p>
+            <p class="text-sm font-semibold text-earth-stone mt-1">Conscious Homes Cleaned</p>
+          </div>
+          <div class="pt-4 lg:pt-0">
+            <p class="text-3xl sm:text-4xl font-extrabold text-brand-600">99.8%</p>
+            <p class="text-sm font-semibold text-earth-stone mt-1">Lab-Certified Grease Removal</p>
+          </div>
+          <div class="pt-4 lg:pt-0">
+            <p class="text-3xl sm:text-4xl font-extrabold text-brand-600">4.9 / 5.0</p>
+            <p class="text-sm font-semibold text-earth-stone mt-1">From 3,200+ Verified Reviews</p>
+          </div>
+          <div class="pt-4 lg:pt-0">
+            <p class="text-3xl sm:text-4xl font-extrabold text-brand-600">0%</p>
+            <p class="text-sm font-semibold text-earth-stone mt-1">Petroleum, Sulfates, or Ammonia</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Professional Cleaning Services & Instant Quote Engine -->
+    <section id="services" class="py-20 lg:py-28 bg-[#F7F5F0]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-brand-500 font-bold uppercase tracking-wider text-xs">Professional Cleaners &bull; Pure Air</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-earth-dark tracking-tight mt-2">
+            Kesava Professional Cleaning Services
+          </h2>
+          <p class="text-earth-stone text-base sm:text-lg mt-3">
+            Trained eco-specialists equipped with our hospital-grade plant bio-enzymes. Customize your package and get an instantaneous transparent quote.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Services List Selector (Left 7 Cols) -->
+          <div class="lg:col-span-7 space-y-4">
+            
+            <!-- Service 1: Residential Deep Clean -->
+            <button type="button" class="service-select-btn w-full text-left p-6 rounded-3xl border-2 border-brand-500 bg-brand-50/50 shadow-sm transition hover:shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-service="Residential Deep Clean">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-brand-500 text-white flex items-center justify-center shrink-0 shadow-md">
+                  <i data-lucide="sparkles" class="w-6 h-6"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-extrabold text-earth-dark text-lg">Residential Deep Clean</h3>
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-brand-500 text-white">Popular</span>
+                  </div>
+                  <p class="text-xs text-earth-stone mt-1">Baseboards, behind appliances, full kitchen &amp; bathroom revival with zero synthetic fumes.</p>
+                  <p class="text-xs font-bold text-brand-700 mt-2 flex items-center gap-1.5">
+                    <i data-lucide="check" class="w-3.5 h-3.5"></i> Includes full aromatherapy mist pass
+                  </p>
+                </div>
+              </div>
+              <div class="text-right sm:border-l sm:border-earth-clay sm:pl-6 shrink-0">
+                <span class="text-xs text-earth-stone block">Starting from</span>
+                <span class="text-2xl font-black text-brand-600">$129</span>
+              </div>
+            </button>
+
+            <!-- Service 2: Kitchen & Appliance Restoration -->
+            <button type="button" class="service-select-btn w-full text-left p-6 rounded-3xl border-2 border-earth-clay bg-white shadow-sm transition hover:border-brand-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-service="Kitchen &amp; Appliance Restoration">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+                  <i data-lucide="flame" class="w-6 h-6"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-extrabold text-earth-dark text-lg">Kitchen &amp; Appliance Restoration</h3>
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">Grease Buster</span>
+                  </div>
+                  <p class="text-xs text-earth-stone mt-1">Baked-on range hood, oven interiors, stovetop cooktops, and marble backsplash descaling.</p>
+                </div>
+              </div>
+              <div class="text-right sm:border-l sm:border-earth-clay sm:pl-6 shrink-0">
+                <span class="text-xs text-earth-stone block">Starting from</span>
+                <span class="text-2xl font-black text-earth-dark">$99</span>
+              </div>
+            </button>
+
+            <!-- Service 3: Bathroom Mineral & Scale Sanitization -->
+            <button type="button" class="service-select-btn w-full text-left p-6 rounded-3xl border-2 border-earth-clay bg-white shadow-sm transition hover:border-brand-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-service="Bathroom Mineral &amp; Scale Sanitization">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+                  <i data-lucide="droplet" class="w-6 h-6"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-extrabold text-earth-dark text-lg">Bathroom Mineral &amp; Scale Sanitization</h3>
+                  </div>
+                  <p class="text-xs text-earth-stone mt-1">Organic citric acid descaling for shower glass, soap scum, and tile grout without chlorine bleach.</p>
+                </div>
+              </div>
+              <div class="text-right sm:border-l sm:border-earth-clay sm:pl-6 shrink-0">
+                <span class="text-xs text-earth-stone block">Starting from</span>
+                <span class="text-2xl font-black text-earth-dark">$89</span>
+              </div>
+            </button>
+
+            <!-- Service 4: Move-in / Move-out Sanitization -->
+            <button type="button" class="service-select-btn w-full text-left p-6 rounded-3xl border-2 border-earth-clay bg-white shadow-sm transition hover:border-brand-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-service="Move-in / Move-out Sanitization">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-800 flex items-center justify-center shrink-0">
+                  <i data-lucide="home" class="w-6 h-6"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-extrabold text-earth-dark text-lg">Move-in / Move-out Sanitization</h3>
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">Deposit Guaranteed</span>
+                  </div>
+                  <p class="text-xs text-earth-stone mt-1">Deep sanitization inside empty cabinets, closets, window tracks, and steam extraction.</p>
+                </div>
+              </div>
+              <div class="text-right sm:border-l sm:border-earth-clay sm:pl-6 shrink-0">
+                <span class="text-xs text-earth-stone block">Starting from</span>
+                <span class="text-2xl font-black text-earth-dark">$169</span>
+              </div>
+            </button>
+
+            <!-- Service 5: Commercial & Office Spaces -->
+            <button type="button" class="service-select-btn w-full text-left p-6 rounded-3xl border-2 border-earth-clay bg-white shadow-sm transition hover:border-brand-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-service="Eco Commercial &amp; Office">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-800 flex items-center justify-center shrink-0">
+                  <i data-lucide="building" class="w-6 h-6"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-extrabold text-earth-dark text-lg">Eco Commercial &amp; Office</h3>
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800">Workplace Wellness</span>
+                  </div>
+                  <p class="text-xs text-earth-stone mt-1">Desk touch-points, conference glass, breakroom degreasing with zero headache-inducing perfumes.</p>
+                </div>
+              </div>
+              <div class="text-right sm:border-l sm:border-earth-clay sm:pl-6 shrink-0">
+                <span class="text-xs text-earth-stone block">Starting from</span>
+                <span class="text-2xl font-black text-earth-dark">$199</span>
+              </div>
+            </button>
+
+          </div>
+
+          <!-- Interactive Quotation Box (Right 5 Cols) -->
+          <div class="lg:col-span-5 bg-white border border-earth-clay rounded-3xl p-6 sm:p-8 shadow-soft sticky top-28">
+            <div class="pb-4 border-b border-earth-clay">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-brand-600">Transparent Instant Pricing</span>
+              <h3 class="text-xl font-extrabold text-earth-dark mt-0.5">Customize Your Home Clean</h3>
+            </div>
+
+            <!-- Parameters -->
+            <div class="py-5 space-y-5 text-xs">
+              
+              <!-- Bedrooms & Bathrooms Counters -->
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="font-bold text-earth-dark block mb-1">Bedrooms:</label>
+                  <div class="flex items-center border border-earth-clay rounded-xl bg-earth-sand px-3 py-1.5 justify-between">
+                    <button id="quoteRoomsMinus" class="font-bold text-base px-2 text-earth-dark hover:text-brand-600">-</button>
+                    <span id="quoteRoomsVal" class="font-extrabold text-sm">2</span>
+                    <button id="quoteRoomsPlus" class="font-bold text-base px-2 text-earth-dark hover:text-brand-600">+</button>
+                  </div>
+                </div>
+                <div>
+                  <label class="font-bold text-earth-dark block mb-1">Bathrooms:</label>
+                  <div class="flex items-center border border-earth-clay rounded-xl bg-earth-sand px-3 py-1.5 justify-between">
+                    <button id="quoteBathsMinus" class="font-bold text-base px-2 text-earth-dark hover:text-brand-600">-</button>
+                    <span id="quoteBathsVal" class="font-extrabold text-sm">1</span>
+                    <button id="quoteBathsPlus" class="font-bold text-base px-2 text-earth-dark hover:text-brand-600">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Square Footage Slider -->
+              <div>
+                <div class="flex justify-between font-bold text-earth-dark mb-1">
+                  <span>Home Area:</span>
+                  <span id="quoteSqftVal" class="text-brand-600 font-extrabold">1,200 sq ft</span>
+                </div>
+                <input type="range" id="quoteSqftSlider" min="500" max="4000" step="100" value="1200" class="w-full accent-brand-500 cursor-pointer h-2 bg-earth-clay rounded-lg" />
+              </div>
+
+              <!-- Frequency & Discount -->
+              <div>
+                <label class="font-bold text-earth-dark block mb-2">Service Frequency:</label>
+                <div class="grid grid-cols-3 gap-2 text-center">
+                  <label class="border border-earth-clay rounded-xl p-2 cursor-pointer hover:border-brand-400 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/60">
+                    <input type="radio" name="quoteFrequency" value="One-time" checked class="hidden" />
+                    <span class="block font-bold text-earth-dark text-[11px]">One-Time</span>
+                    <span class="text-[10px] text-earth-stone">Standard</span>
+                  </label>
+                  <label class="border border-earth-clay rounded-xl p-2 cursor-pointer hover:border-brand-400 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/60">
+                    <input type="radio" name="quoteFrequency" value="Bi-Weekly (15% Off)" class="hidden" />
+                    <span class="block font-bold text-earth-dark text-[11px]">Bi-Weekly</span>
+                    <span class="text-[10px] text-brand-600 font-bold">15% Off</span>
+                  </label>
+                  <label class="border border-earth-clay rounded-xl p-2 cursor-pointer hover:border-brand-400 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/60">
+                    <input type="radio" name="quoteFrequency" value="Monthly (10% Off)" class="hidden" />
+                    <span class="block font-bold text-earth-dark text-[11px]">Monthly</span>
+                    <span class="text-[10px] text-brand-600 font-bold">10% Off</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Addons Checkboxes -->
+              <div>
+                <label class="font-bold text-earth-dark block mb-1">Optional Add-ons:</label>
+                <div class="space-y-1.5">
+                  <label class="flex items-center gap-2 text-earth-dark cursor-pointer">
+                    <input type="checkbox" class="quote-addon-check accent-brand-500" value="Inside Oven Degreasing" />
+                    <span>Inside Oven Degreasing (+$35)</span>
+                  </label>
+                  <label class="flex items-center gap-2 text-earth-dark cursor-pointer">
+                    <input type="checkbox" class="quote-addon-check accent-brand-500" value="Inside Refrigerator" />
+                    <span>Inside Refrigerator Sanitization (+$30)</span>
+                  </label>
+                  <label class="flex items-center gap-2 text-earth-dark cursor-pointer">
+                    <input type="checkbox" class="quote-addon-check accent-brand-500" value="Eco Aromatherapy Room Mist" />
+                    <span>Full Aromatherapy Essential Oil Mist (+$15)</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Total Price & CTA -->
+            <div class="pt-4 border-t border-earth-clay space-y-3">
+              <div class="flex items-baseline justify-between">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-earth-stone">Estimated Quote</span>
+                  <p id="quoteDiscountNote" class="text-[11px] text-brand-600 font-semibold hidden"></p>
+                </div>
+                <div class="text-right">
+                  <span id="quoteCalculatedPrice" class="text-3xl font-black text-brand-600">$129.00</span>
+                  <span id="quoteOriginalPrice" class="text-xs text-earth-stone line-through ml-1 hidden"></span>
+                </div>
+              </div>
+
+              <button id="proceedToBookBtn" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3.5 rounded-full shadow-lg shadow-brand-500/30 transition flex items-center justify-center gap-2">
+                <i data-lucide="calendar" class="w-4 h-4"></i>
+                <span>Schedule Appointment</span>
+              </button>
+
+              <div class="flex items-center justify-center gap-4 text-[11px] text-earth-stone font-medium pt-1">
+                <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-500"></i> Bonded &amp; Insured</span>
+                <span class="flex items-center gap-1"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-500"></i> 100% Guaranteed</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. The Problem vs. The Kesava Solution -->
+    <section id="problem-solution" class="py-20 lg:py-28 bg-[#FAF8F5]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-brand-500 font-bold uppercase tracking-wider text-xs">The Conscious Switch</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-earth-dark tracking-tight mt-2">
+            Why Traditional Cleaners Belong in the Past
+          </h2>
+          <p class="text-earth-stone text-base sm:text-lg mt-3">
+            Most supermarket multi-surface sprays rely on synthetic solvents and chlorine bleach packaged in single-use plastic jugs. Here is how Kesava Cleaning re-engineers cleaning for wellness.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+          
+          <!-- Conventional Cleaners -->
+          <div class="bg-white rounded-3xl p-8 border border-red-100 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-red-500/10 text-red-700 text-xs font-bold px-4 py-1.5 rounded-bl-2xl">
+              CONVENTIONAL SPRAYS
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center mb-6">
+              <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-earth-dark mb-4">Toxic Fumes &amp; Single-Use Waste</h3>
+            
+            <ul class="space-y-4">
+              <li class="flex items-start gap-3">
+                <i data-lucide="x" class="w-5 h-5 text-red-500 shrink-0 mt-0.5"></i>
+                <div>
+                  <strong class="text-earth-dark block text-sm">Synthetic Fragrances &amp; Phthalates</strong>
+                  <span class="text-earth-stone text-xs">Trigger allergies, headaches, and respiratory irritation in children and pets.</span>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <i data-lucide="x" class="w-5 h-5 text-red-500 shrink-0 mt-0.5"></i>
+                <div>
+                  <strong class="text-earth-dark block text-sm">90% Bottled Water Shipping</strong>
+                  <span class="text-earth-stone text-xs">Trucking water across the country generates massive carbon transport footprints.</span>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <i data-lucide="x" class="w-5 h-5 text-red-500 shrink-0 mt-0.5"></i>
+                <div>
+                  <strong class="text-earth-dark block text-sm">Disposable High-Density Plastic</strong>
+                  <span class="text-earth-stone text-xs">Only 9% of plastic spray bottles ever get recycled; the rest remains in landfills.</span>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <i data-lucide="x" class="w-5 h-5 text-red-500 shrink-0 mt-0.5"></i>
+                <div>
+                  <strong class="text-earth-dark block text-sm">Harmful Runoff &amp; Aquatic Toxicity</strong>
+                  <span class="text-earth-stone text-xs">Chlorine and quaternary ammonium compounds do not biodegrade safely.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Kesava Cleaning Solution -->
+          <div class="bg-brand-900 text-white rounded-3xl p-8 border border-brand-700 shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-brand-500 text-white text-xs font-bold px-4 py-1.5 rounded-bl-2xl">
+              THE KESAVA SYSTEM
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-brand-800 text-brand-300 flex items-center justify-center mb-6">
+              <i data-lucide="sparkles" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Clean Home. Pure Air. Zero Waste.</h3>
+            
+            <ul class="space-y-4">
+              <li class="flex items-start gap-3">
+                <i data-lucide="check" class="w-5 h-5 text-brand-300 shrink-0 mt-0.5"></i>
+                <div>
+                  <strong class="text-white block text-sm">100% Botanical Essential Oil Aromatherapy</strong>
+                  <span class="text-brand-200 text-xs">Natural peppermint, eucalyptus, and citrus promote clarity without synthetic headaches.</span>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <i data-lucide="check" class="w-5 h-5 text-brand-300 shrink-0 mt-0.5"></i>
+                <div>
+                  <strong class="text-white block text-sm">Just Add Tap Water Concentrates</strong>
+                  <span class="text-brand-200 text-xs">Our 50ml concentrate pouches cut 94% of transit carbon emissions.</span>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <i data-lucide="check" class="w-5 h-5 text-brand-300 shrink-0 mt-0.5"></i>
+                <div>
+                  <strong class="text-white block text-sm">Forever Amber Glass &amp; Matte Silicone Base</strong>
+                  <span class="text-brand-200 text-xs">Durable, shatter-resistant drop protection designed to sit beautifully on your counters for a lifetime.</span>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <i data-lucide="check" class="w-5 h-5 text-brand-300 shrink-0 mt-0.5"></i>
+                <div>
+                  <strong class="text-white block text-sm">100% Rapidly Biodegradable Formula</strong>
+                  <span class="text-brand-200 text-xs">Breaks down completely into carbon and water within 28 days without marine harm.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Product Showcase & Aromatherapy Refills -->
+    <section id="products" class="py-20 lg:py-28 bg-white border-b border-earth-clay">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-brand-500 font-bold uppercase tracking-wider text-xs">Customizable Formulations</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-earth-dark tracking-tight mt-2">
+            Choose Your Clean Routine
+          </h2>
+          <p class="text-earth-stone text-base sm:text-lg mt-3">
+            Select your preferred natural scent blend and bundle configuration. Easily refill with our compostable pouches anytime.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          <!-- Interactive Product Builder (Left 7 Cols) -->
+          <div class="lg:col-span-7 space-y-8 bg-earth-sand/50 rounded-3xl p-6 sm:p-10 border border-earth-clay">
+            
+            <!-- Step 1: Format Selector -->
+            <div>
+              <label class="block text-sm font-bold uppercase tracking-wider text-earth-dark mb-3">
+                1. Select Format &amp; Size
+              </label>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <button type="button" data-format="bundle" class="format-btn border-2 border-brand-500 bg-white p-4 rounded-2xl text-left transition shadow-sm relative">
+                  <span class="absolute -top-2.5 right-3 bg-brand-500 text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded-full">Best Value</span>
+                  <p class="font-bold text-earth-dark text-sm">Starter Bundle</p>
+                  <p class="text-xs text-earth-stone mt-1">Glass Bottle + 4 Refill Packs</p>
+                  <p class="text-brand-600 font-bold text-base mt-2">$34.00 <span class="text-xs text-earth-stone line-through font-normal">$48</span></p>
+                </button>
+
+                <button type="button" data-format="single" class="format-btn border-2 border-earth-clay bg-white/70 p-4 rounded-2xl text-left transition hover:border-brand-300">
+                  <p class="font-bold text-earth-dark text-sm">Glass Spray Bottle</p>
+                  <p class="text-xs text-earth-stone mt-1">500ml Bottle + 1 Refill</p>
+                  <p class="text-earth-dark font-bold text-base mt-2">$22.00</p>
+                </button>
+
+                <button type="button" data-format="refills" class="format-btn border-2 border-earth-clay bg-white/70 p-4 rounded-2xl text-left transition hover:border-brand-300">
+                  <p class="font-bold text-earth-dark text-sm">Refill Pouches (4x)</p>
+                  <p class="text-xs text-earth-stone mt-1">Makes 2 Litres of cleaner</p>
+                  <p class="text-earth-dark font-bold text-base mt-2">$18.00</p>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2: Scent Picker -->
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <label class="text-sm font-bold uppercase tracking-wider text-earth-dark">
+                  2. Choose Natural Aromatherapy Scent
+                </label>
+                <span id="selectedScentLabel" class="text-xs font-bold text-brand-600">Eucalyptus &amp; Mint</span>
+              </div>
+              
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <!-- Scent 1 -->
+                <button type="button" data-scent="Eucalyptus &amp; Mint" class="scent-btn border-2 border-brand-500 bg-white p-3.5 rounded-2xl text-center transition flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center mb-2 font-bold text-xs">EM</div>
+                  <span class="text-xs font-bold text-earth-dark">Eucalyptus &amp; Mint</span>
+                  <span class="text-[10px] text-earth-stone mt-0.5">Invigorating &amp; Fresh</span>
+                </button>
+
+                <!-- Scent 2 -->
+                <button type="button" data-scent="Citrus Blossom" class="scent-btn border-2 border-earth-clay bg-white/70 p-3.5 rounded-2xl text-center transition flex flex-col items-center hover:border-brand-300">
+                  <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center mb-2 font-bold text-xs">CB</div>
+                  <span class="text-xs font-bold text-earth-dark">Citrus Blossom</span>
+                  <span class="text-[10px] text-earth-stone mt-0.5">Grapefruit &amp; Bergamot</span>
+                </button>
+
+                <!-- Scent 3 -->
+                <button type="button" data-scent="Lavender Herb" class="scent-btn border-2 border-earth-clay bg-white/70 p-3.5 rounded-2xl text-center transition flex flex-col items-center hover:border-brand-300">
+                  <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-800 flex items-center justify-center mb-2 font-bold text-xs">LH</div>
+                  <span class="text-xs font-bold text-earth-dark">Lavender Herb</span>
+                  <span class="text-[10px] text-earth-stone mt-0.5">French Lavender &amp; Rosemary</span>
+                </button>
+
+                <!-- Scent 4 -->
+                <button type="button" data-scent="Fragrance-Free" class="scent-btn border-2 border-earth-clay bg-white/70 p-3.5 rounded-2xl text-center transition flex flex-col items-center hover:border-brand-300">
+                  <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-800 flex items-center justify-center mb-2 font-bold text-xs">FF</div>
+                  <span class="text-xs font-bold text-earth-dark">Fragrance-Free</span>
+                  <span class="text-[10px] text-earth-stone mt-0.5">Ultra Hypoallergenic</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Perks Summary -->
+            <div class="p-4 bg-white rounded-2xl border border-earth-clay text-xs space-y-2">
+              <div class="flex items-center gap-2 text-earth-dark font-medium">
+                <i data-lucide="shield-check" class="w-4 h-4 text-brand-500"></i>
+                <span>30-Day Happiness Guarantee: If it does not clean your toughest grease, keep it for free.</span>
+              </div>
+              <div class="flex items-center gap-2 text-earth-dark font-medium">
+                <i data-lucide="truck" class="w-4 h-4 text-brand-500"></i>
+                <span>Free Carbon-Neutral Shipping on all bundles over $30.</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Checkout Box (Right 5 Cols) -->
+          <div class="lg:col-span-5 bg-white border border-earth-clay rounded-3xl p-6 sm:p-8 shadow-soft sticky top-28">
+            <div class="flex items-center justify-between pb-4 border-b border-earth-clay">
+              <div>
+                <h3 id="checkoutTitle" class="text-xl font-bold text-earth-dark">Kesava Complete Starter Bundle</h3>
+                <p id="checkoutSubtitle" class="text-xs text-earth-stone mt-0.5">Amber Glass Spray Bottle + 4 Concentrate Pouches</p>
+              </div>
+              <div class="text-right">
+                <span id="checkoutPrice" class="text-2xl font-extrabold text-brand-600">$34.00</span>
+                <span id="checkoutOriginalPrice" class="block text-xs text-earth-stone line-through">$48.00</span>
+              </div>
+            </div>
+
+            <!-- In the Box list -->
+            <div class="py-5 space-y-3">
+              <p class="text-xs font-bold uppercase tracking-wider text-earth-stone">Included in package:</p>
+              <div class="flex items-center gap-3 text-xs text-earth-dark font-medium">
+                <span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-[10px] font-bold">1</span>
+                <span>Heavy-duty frosted apothecary borosilicate glass bottle (500ml)</span>
+              </div>
+              <div class="flex items-center gap-3 text-xs text-earth-dark font-medium">
+                <span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-[10px] font-bold">4</span>
+                <span id="includedScentSummary">50ml concentrate pods in Eucalyptus &amp; Mint</span>
+              </div>
+              <div class="flex items-center gap-3 text-xs text-earth-dark font-medium">
+                <span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-[10px] font-bold">1</span>
+                <span>Protective non-slip silicone protective bottle boot</span>
+              </div>
+            </div>
+
+            <!-- Quantity & Add to Cart -->
+            <div class="pt-4 border-t border-earth-clay space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-earth-dark">Quantity:</span>
+                <div class="inline-flex items-center border border-earth-clay rounded-full bg-earth-sand px-3 py-1">
+                  <button id="qtyMinus" class="text-earth-dark hover:text-brand-600 font-bold px-2 text-sm">-</button>
+                  <span id="qtyVal" class="text-xs font-bold px-3">1</span>
+                  <button id="qtyPlus" class="text-earth-dark hover:text-brand-600 font-bold px-2 text-sm">+</button>
+                </div>
+              </div>
+
+              <button id="addToCartMainBtn" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 rounded-full shadow-lg shadow-brand-500/30 hover:shadow-brand-500/40 transition duration-200 flex items-center justify-center gap-2 transform active:scale-95">
+                <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                <span id="addBtnText">Add to Cart &bull; $34.00</span>
+              </button>
+
+              <div class="flex items-center justify-center gap-4 text-xs text-earth-stone font-medium pt-2">
+                <span class="flex items-center gap-1"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-500"></i> In Stock</span>
+                <span class="flex items-center gap-1"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-500"></i> Ships in 24h</span>
+                <span class="flex items-center gap-1"><i data-lucide="lock" class="w-3.5 h-3.5 text-brand-500"></i> 256-bit Secure</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. Interactive 'Before & After' / Surface Wiper -->
+    <section id="surface-demo" class="py-20 lg:py-28 bg-[#F7F5F0]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="text-brand-500 font-bold uppercase tracking-wider text-xs">Proof on Every Material</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-earth-dark tracking-tight mt-2">
+            See the Grease Meltdown
+          </h2>
+          <p class="text-earth-stone text-base sm:text-lg mt-3">
+            Drag the interactive slider below to reveal how active plant enzymes cut through burnt oil, bathroom scale, fingerprints, and hardwood film.
+          </p>
+
+          <!-- Surface Switcher Tabs -->
+          <div class="flex flex-wrap items-center justify-center gap-2 mt-8">
+            <button class="surface-tab active px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-brand-500 text-white shadow-sm transition" data-surface="stovetop">
+              🍳 Stovetop Grease
+            </button>
+            <button class="surface-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-earth-dark border border-earth-clay hover:border-brand-400 transition" data-surface="tiles">
+              🚿 Soap Scum &amp; Tiles
+            </button>
+            <button class="surface-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-earth-dark border border-earth-clay hover:border-brand-400 transition" data-surface="glass">
+              🪞 Mirrors &amp; Glass
+            </button>
+            <button class="surface-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-earth-dark border border-earth-clay hover:border-brand-400 transition" data-surface="wood">
+              🪵 Finished Hardwood
+            </button>
+          </div>
+        </div>
+
+        <!-- Before & After Comparison Stage -->
+        <div class="max-w-4xl mx-auto bg-white rounded-3xl p-4 sm:p-6 shadow-soft border border-earth-clay">
+          <div class="relative w-full h-80 sm:h-[460px] rounded-2xl overflow-hidden select-none" id="comparisonWrapper">
+            
+            <!-- AFTER Layer (Bottom, Clean Slate) -->
+            <div id="cleanSurfaceLayer" class="absolute inset-0 w-full h-full flex flex-col justify-between p-8 bg-gradient-to-tr from-slate-100 via-white to-emerald-50/40">
+              <div class="flex justify-end">
+                <span class="bg-brand-500 text-white font-extrabold text-xs uppercase px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5">
+                  <i data-lucide="sparkle" class="w-3.5 h-3.5"></i> Kesava Clean Sparkle
+                </span>
+              </div>
+              <div id="cleanDetails" class="max-w-sm bg-white/90 backdrop-blur-md p-4 rounded-xl border border-white/60 shadow">
+                <h4 id="cleanSurfaceTitle" class="font-bold text-earth-dark text-base">Polished Induction Stovetop</h4>
+                <p id="cleanSurfaceDesc" class="text-xs text-earth-stone mt-1">Zero streaks, micro-scratches, or cloudy chemical halos. Completely safe for food prep areas.</p>
+              </div>
+            </div>
+
+            <!-- BEFORE Layer (Top Grime Layer clipped by slider) -->
+            <div id="grimySurfaceLayer" class="absolute inset-0 h-full overflow-hidden" style="width: 50%;">
+              <div class="absolute inset-0 w-[800px] sm:w-[900px] h-full p-8 flex flex-col justify-between" id="grimeContentBackground" style="background: linear-gradient(135deg, #7c5d3f 0%, #3d2919 40%, #1a110a 100%);">
+                <div class="absolute inset-0 bg-black/40 backdrop-blur-[1px]"></div>
+                <div class="absolute inset-0 opacity-40 mix-blend-color-dodge bg-[radial-gradient(#facc15_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+                <div class="relative z-10">
+                  <span class="bg-black/80 text-amber-300 font-extrabold text-xs uppercase px-3 py-1.5 rounded-full border border-amber-500/30">
+                    ⚠️ Grime &amp; Baked-on Residue
+                  </span>
+                </div>
+                <div class="relative z-10 max-w-xs bg-black/70 backdrop-blur p-4 rounded-xl text-white border border-white/10">
+                  <h4 class="font-bold text-sm text-amber-200">Before Kesava Cleaning</h4>
+                  <p class="text-xs text-neutral-300 mt-1">Burnt olive oil and sticky sauce splatter dried over 48 hours.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slider Divider Line -->
+            <div id="sliderDivider" class="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_12px_rgba(0,0,0,0.5)] cursor-ew-resize pointer-events-none" style="left: 50%;">
+              <div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-brand-500 border-2 border-white rounded-full flex items-center justify-center text-white shadow-xl">
+                <i data-lucide="chevrons-left-right" class="w-5 h-5"></i>
+              </div>
+            </div>
+
+            <input type="range" min="0" max="100" value="50" id="comparisonSliderInput" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 m-0" aria-label="Wipe to compare before and after cleaning" />
+          </div>
+
+          <p class="text-center text-xs text-earth-stone mt-4 flex items-center justify-center gap-2">
+            <i data-lucide="mouse-pointer" class="w-3.5 h-3.5 text-brand-500"></i>
+            <span>Drag handle or swipe across to see Kesava Cleaning wipe away grime</span>
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 7. Ingredient Transparency Section -->
+    <section id="ingredients" class="py-20 lg:py-28 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-brand-500 font-bold uppercase tracking-wider text-xs">Nothing Hidden, Ever</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-earth-dark tracking-tight mt-2">
+            100% Transparent Botanical Chemistry
+          </h2>
+          <p class="text-earth-stone text-base sm:text-lg mt-3">
+            Unlike traditional cleaners that conceal toxic proprietary scents under the label &ldquo;fragrance&rdquo;, every single component in Kesava Cleaning is disclosed in plain English.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Card 1 -->
+          <div class="bg-earth-sand/40 rounded-3xl p-6 border border-earth-clay hover:border-brand-300 transition duration-300 group">
+            <div class="w-14 h-14 rounded-2xl bg-white border border-earth-clay flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-500 group-hover:text-white transition duration-200">
+              <i data-lucide="circle-dot" class="w-7 h-7"></i>
+            </div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-brand-600">The Grease Dissolver</span>
+            <h3 class="text-xl font-bold text-earth-dark mt-1">Coconut Alkyl Glucoside</h3>
+            <p class="text-xs text-earth-stone mt-2 leading-relaxed">
+              Sustainably derived from coconut flesh. A non-ionic surfactant that gently lifts and binds oily molecules so they rinse away with a single microfiber wipe.
+            </p>
+            <div class="mt-4 pt-4 border-t border-earth-clay/60 text-[11px] text-earth-dark font-semibold flex items-center gap-1.5">
+              <i data-lucide="shield" class="w-3.5 h-3.5 text-brand-500"></i>
+              <span>EWG Hazard Rating: 1 (Safest)</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-earth-sand/40 rounded-3xl p-6 border border-earth-clay hover:border-brand-300 transition duration-300 group">
+            <div class="w-14 h-14 rounded-2xl bg-white border border-earth-clay flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-500 group-hover:text-white transition duration-200">
+              <i data-lucide="citrus" class="w-7 h-7"></i>
+            </div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-brand-600">The Mineral Stripper</span>
+            <h3 class="text-xl font-bold text-earth-dark mt-1">Natural Citric Acid</h3>
+            <p class="text-xs text-earth-stone mt-2 leading-relaxed">
+              Fermented from organic citrus fruits. Naturally adjusts pH to dissolve stubborn bathroom soap scum, calcium buildup, and hard water stains without harsh bleach.
+            </p>
+            <div class="mt-4 pt-4 border-t border-earth-clay/60 text-[11px] text-earth-dark font-semibold flex items-center gap-1.5">
+              <i data-lucide="shield" class="w-3.5 h-3.5 text-brand-500"></i>
+              <span>Food-grade certified safe</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-earth-sand/40 rounded-3xl p-6 border border-earth-clay hover:border-brand-300 transition duration-300 group">
+            <div class="w-14 h-14 rounded-2xl bg-white border border-earth-clay flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-500 group-hover:text-white transition duration-200">
+              <i data-lucide="flower-2" class="w-7 h-7"></i>
+            </div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-brand-600">Pure Aromatherapy</span>
+            <h3 class="text-xl font-bold text-earth-dark mt-1">Cold-Pressed Botanicals</h3>
+            <p class="text-xs text-earth-stone mt-2 leading-relaxed">
+              Steam-distilled eucalyptus globulus, Italian sweet orange, and peppermint leaves. Imparts refreshing aromas with zero synthetic musk or endocrine disruptors.
+            </p>
+            <div class="mt-4 pt-4 border-t border-earth-clay/60 text-[11px] text-earth-dark font-semibold flex items-center gap-1.5">
+              <i data-lucide="shield" class="w-3.5 h-3.5 text-brand-500"></i>
+              <span>Zero Artificial Parfum</span>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="bg-earth-sand/40 rounded-3xl p-6 border border-earth-clay hover:border-brand-300 transition duration-300 group">
+            <div class="w-14 h-14 rounded-2xl bg-white border border-earth-clay flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-500 group-hover:text-white transition duration-200">
+              <i data-lucide="droplet" class="w-7 h-7"></i>
+            </div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-brand-600">Pure Dilution Base</span>
+            <h3 class="text-xl font-bold text-earth-dark mt-1">Sodium Gluconate</h3>
+            <p class="text-xs text-earth-stone mt-2 leading-relaxed">
+              Produced by glucose bio-fermentation. Functions as a natural water-softening chelating agent to prevent streak marks and residue deposits on quartz or glass.
+            </p>
+            <div class="mt-4 pt-4 border-t border-earth-clay/60 text-[11px] text-earth-dark font-semibold flex items-center gap-1.5">
+              <i data-lucide="shield" class="w-3.5 h-3.5 text-brand-500"></i>
+              <span>100% Readily Biodegradable</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 8. Customer Reviews & Verified Testimonials -->
+    <section id="reviews" class="py-20 lg:py-28 bg-[#FAF8F5] border-t border-earth-clay">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+          <div>
+            <span class="text-brand-500 font-bold uppercase tracking-wider text-xs">Real Feedback</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-earth-dark tracking-tight mt-2" id="reviewsTotalCount">
+              Loved by 50,000+ Clean-Conscious Homes
+            </h2>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <div class="flex text-amber-400">
+                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+                <i data-lucide="star" class="w-5 h-5 fill-amber-400"></i>
+              </div>
+              <span class="font-bold text-sm text-earth-dark" id="reviewsAvgScore">4.9 Overall Score</span>
+            </div>
+            
+            <button id="openWriteReviewBtn" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-500 text-brand-600 font-bold text-xs hover:bg-brand-50 transition shadow-sm">
+              <i data-lucide="pen-tool" class="w-3.5 h-3.5"></i>
+              <span>Leave a Review</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Reviews Cards Container -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="reviewsCardsGrid">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 9. FAQ Accordion -->
+    <section id="faq" class="py-20 lg:py-28 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-16">
+          <span class="text-brand-500 font-bold uppercase tracking-wider text-xs">Got Questions?</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-earth-dark tracking-tight mt-2">
+            Frequently Asked Questions
+          </h2>
+          <p class="text-earth-stone text-base mt-2">Everything you need to know about safety, refills, and Kesava professional cleaning.</p>
+        </div>
+
+        <div class="space-y-4" id="faqAccordion">
+          
+          <div class="faq-item border border-earth-clay rounded-2xl overflow-hidden transition">
+            <button class="faq-toggle w-full px-6 py-5 text-left font-bold text-earth-dark flex justify-between items-center bg-earth-sand/30 hover:bg-earth-sand/60">
+              <span class="text-base sm:text-lg">Is Kesava Cleaning truly safe around curious pets and infants?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-earth-stone transition-transform duration-200"></i>
+            </button>
+            <div class="faq-answer hidden px-6 py-4 bg-white text-earth-stone text-sm leading-relaxed border-t border-earth-clay/60">
+              Yes, absolutely. Both our professional services and our refillable concentrates are 100% free of quats (quaternary ammonium compounds), bleach, parabens, glycol ethers, and artificial synthetic musk. Once dry, surfaces are completely safe for food prep, paws, and barefoot toddlers.
+            </div>
+          </div>
+
+          <div class="faq-item border border-earth-clay rounded-2xl overflow-hidden transition">
+            <button class="faq-toggle w-full px-6 py-5 text-left font-bold text-earth-dark flex justify-between items-center bg-earth-sand/30 hover:bg-earth-sand/60">
+              <span class="text-base sm:text-lg">Is it safe for natural stone like granite, quartz, and Carrara marble?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-earth-stone transition-transform duration-200"></i>
+            </button>
+            <div class="faq-answer hidden px-6 py-4 bg-white text-earth-stone text-sm leading-relaxed border-t border-earth-clay/60">
+              Yes. Unlike harsh vinegar-based DIY cleaners that etch calcite crystals in sealed marble, Kesava Cleaning utilizes a buffered botanical surfactant system with a balanced pH of 6.8 that will not dull, strip, or etch sealed granite, quartz, porcelain, or honed marble.
+            </div>
+          </div>
+
+          <div class="faq-item border border-earth-clay rounded-2xl overflow-hidden transition">
+            <button class="faq-toggle w-full px-6 py-5 text-left font-bold text-earth-dark flex justify-between items-center bg-earth-sand/30 hover:bg-earth-sand/60">
+              <span class="text-base sm:text-lg">How does booking a professional cleaning service work?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-earth-stone transition-transform duration-200"></i>
+            </button>
+            <div class="faq-answer hidden px-6 py-4 bg-white text-earth-stone text-sm leading-relaxed border-t border-earth-clay/60">
+              You can get an instant transparent quote using our online calculator, select your preferred date and time, and confirm your appointment. When signed into your Kesava account, you can view, reschedule, or cancel your appointments directly from your dashboard anytime.
+            </div>
+          </div>
+
+          <div class="faq-item border border-earth-clay rounded-2xl overflow-hidden transition">
+            <button class="faq-toggle w-full px-6 py-5 text-left font-bold text-earth-dark flex justify-between items-center bg-earth-sand/30 hover:bg-earth-sand/60">
+              <span class="text-base sm:text-lg">What happens if the glass bottle accidentally drops?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-earth-stone transition-transform duration-200"></i>
+            </button>
+            <div class="faq-answer hidden px-6 py-4 bg-white text-earth-stone text-sm leading-relaxed border-t border-earth-clay/60">
+              Every starter set includes a shock-absorbing silicone safety sleeve fitted snugly around the base of our reinforced borosilicate bottle. In the rare event it should ever break, our Forever Guarantee replaces it at zero cost.
+            </div>
+          </div>
+
+          <div class="faq-item border border-earth-clay rounded-2xl overflow-hidden transition">
+            <button class="faq-toggle w-full px-6 py-5 text-left font-bold text-earth-dark flex justify-between items-center bg-earth-sand/30 hover:bg-earth-sand/60">
+              <span class="text-base sm:text-lg">What is your shipping &amp; guarantee policy?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-earth-stone transition-transform duration-200"></i>
+            </button>
+            <div class="faq-answer hidden px-6 py-4 bg-white text-earth-stone text-sm leading-relaxed border-t border-earth-clay/60">
+              All product orders ship carbon-neutral within 24 hours. If Kesava Cleaning doesn't outperform your current cleaner within 30 days, simply contact support@kesavacleaning.com for an immediate 100% refund.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 10. Pre-Footer Newsletter & Footer -->
+    <section class="bg-brand-900 text-white py-16 border-t border-brand-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-brand-800 rounded-3xl p-8 sm:p-12 border border-brand-700/80 flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div class="max-w-xl text-center lg:text-left">
+            <span class="text-brand-300 font-bold uppercase tracking-wider text-xs">Join the Refill Revolution</span>
+            <h3 class="text-2xl sm:text-3xl font-extrabold mt-1">Get 15% off your first refill kit or service</h3>
+            <p class="text-brand-200 text-sm mt-2">Receive eco-home cleaning guides and early access to limited edition seasonal botanicals.</p>
+          </div>
+
+          <form id="newsletterForm" class="w-full lg:w-auto flex flex-col sm:flex-row gap-3 max-w-md">
+            <input type="email" required placeholder="Enter your email address" class="px-5 py-3.5 rounded-full bg-white/10 border border-brand-600 text-white placeholder-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-400 text-sm w-full sm:w-72" />
+            <button type="submit" class="bg-brand-500 hover:bg-brand-400 text-white font-bold px-6 py-3.5 rounded-full text-sm transition shadow-md whitespace-nowrap">
+              Subscribe
+            </button>
+          </form>
+        </div>
+
+        <!-- Eco Certifications Strip -->
+        <div class="py-12 border-b border-brand-800 flex flex-wrap items-center justify-center gap-8 sm:gap-16 opacity-75">
+          <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-200">
+            <i data-lucide="award" class="w-5 h-5 text-brand-400"></i>
+            <span>Certified B Corporation</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-200">
+            <i data-lucide="rabbit" class="w-5 h-5 text-brand-400"></i>
+            <span>Leaping Bunny Cruelty-Free</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-200">
+            <i data-lucide="globe-2" class="w-5 h-5 text-brand-400"></i>
+            <span>1% For The Planet Member</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-200">
+            <i data-lucide="cloud-off" class="w-5 h-5 text-brand-400"></i>
+            <span>100% Climate Neutral Certified</span>
+          </div>
+        </div>
+
+        <!-- Main Footer Links -->
+        <footer class="pt-12 grid grid-cols-2 md:grid-cols-5 gap-8 text-xs text-brand-200">
+          <div class="col-span-2">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center text-white font-black">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+              </div>
+              <span class="text-lg font-extrabold text-white">Kesava Cleaning</span>
+            </div>
+            <p class="mt-3 text-brand-300 leading-relaxed max-w-sm">
+              Formulated with care and certified organic bio-enzymes. Providing professional residential and commercial cleaning services alongside zero-waste refills.
+            </p>
+            <div class="flex items-center gap-4 mt-5 text-brand-300">
+              <a href="#" class="hover:text-white transition"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+              <a href="#" class="hover:text-white transition"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+              <a href="#" class="hover:text-white transition"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+            </div>
+          </div>
+
+          <div>
+            <h5 class="font-bold text-white uppercase tracking-wider mb-3">Services</h5>
+            <ul class="space-y-2">
+              <li><a href="#services" class="hover:underline">Residential Deep Clean</a></li>
+              <li><a href="#services" class="hover:underline">Kitchen &amp; Appliance</a></li>
+              <li><a href="#services" class="hover:underline">Bathroom Descaling</a></li>
+              <li><a href="#services" class="hover:underline">Move-in / Move-out</a></li>
+              <li><a href="#services" class="hover:underline">Eco Commercial Office</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 class="font-bold text-white uppercase tracking-wider mb-3">Products</h5>
+            <ul class="space-y-2">
+              <li><a href="#products" class="hover:underline">Starter Bundles</a></li>
+              <li><a href="#products" class="hover:underline">Refill Pods (4-Pack)</a></li>
+              <li><a href="#products" class="hover:underline">Glass Apothecary Flask</a></li>
+              <li><a href="#products" class="hover:underline">Microfiber Towel Packs</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 class="font-bold text-white uppercase tracking-wider mb-3">Account &amp; Help</h5>
+            <ul class="space-y-2">
+              <li><a href="javascript:void(0)" onclick="auth.openAuthModal('login')" class="hover:underline">Sign In / Register</a></li>
+              <li><a href="javascript:void(0)" onclick="auth.openDashboardModal()" class="hover:underline">My Appointments &amp; Orders</a></li>
+              <li><a href="#faq" class="hover:underline">Contact Concierge</a></li>
+              <li><a href="#faq" class="hover:underline">Returns &amp; Guarantee</a></li>
+            </ul>
+          </div>
+        </footer>
+
+        <div class="mt-12 pt-6 border-t border-brand-800/80 text-center text-xs text-brand-400">
+          &copy; 2026 Kesava Cleaning Laboratories LLC. All rights reserved. Kesava Cleaning is a registered trademark.
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== MODALS & DRAWERS ==================== -->
+
+  <!-- 1. Authentication Modal (Sign In & Sign Up) -->
+  <dialog id="authModal" class="fixed inset-0 z-50 p-4 bg-transparent m-0 max-w-none max-h-none w-full h-full border-0 hidden">
+    <div id="authModalBackdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-auto"></div>
+    <div class="relative bg-white rounded-3xl max-w-md w-full mx-auto my-auto overflow-hidden shadow-2xl z-10 pointer-events-auto border border-earth-clay p-6 sm:p-8">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-earth-clay">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-brand-500 text-white flex items-center justify-center font-bold">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-earth-dark text-lg">Kesava Cleaning</h3>
+            <p class="text-[10px] text-earth-stone uppercase tracking-wider font-semibold">Member Access Portal</p>
+          </div>
+        </div>
+        <button id="closeAuthModalBtn" class="text-earth-stone hover:text-earth-dark p-1 rounded-full">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Error Notification Box -->
+      <div id="authErrorMsg" class="hidden mt-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold"></div>
+
+      <!-- Tab Buttons: Sign In vs Sign Up -->
+      <div class="flex border-b border-earth-clay mt-4 text-xs font-bold">
+        <button id="authTabLogin" class="flex-1 py-3 text-center border-b-2 border-brand-500 text-brand-600 transition">
+          Sign In
+        </button>
+        <button id="authTabRegister" class="flex-1 py-3 text-center border-b-2 border-transparent text-earth-stone hover:text-earth-dark transition">
+          Create Account
+        </button>
+      </div>
+
+      <!-- SIGN IN FORM -->
+      <div id="authLoginSection" class="mt-5 space-y-4">
+        <form id="loginForm" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-earth-dark mb-1">Email Address</label>
+            <input type="email" id="loginEmail" required placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl border border-earth-clay bg-earth-sand/30 focus:outline-none focus:ring-2 focus:ring-brand-500 text-xs" />
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="block text-xs font-bold uppercase tracking-wider text-earth-dark">Password</label>
+              <span class="text-[11px] text-brand-600 hover:underline cursor-pointer">Forgot?</span>
+            </div>
+            <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-earth-clay bg-earth-sand/30 focus:outline-none focus:ring-2 focus:ring-brand-500 text-xs" />
+          </div>
+          <button type="submit" id="loginSubmitBtn" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3.5 rounded-full shadow-md transition flex items-center justify-center gap-2 text-xs">
+            <i data-lucide="log-in" class="w-4 h-4"></i>
+            <span>Sign In to Account</span>
+          </button>
+        </form>
+
+        <!-- Quick Demo Accounts -->
+        <div class="pt-3 border-t border-earth-clay/60">
+          <p class="text-[10px] font-bold uppercase tracking-wider text-earth-stone mb-2 text-center">Quick Demo Accounts (Click to Fill):</p>
+          <div class="grid grid-cols-2 gap-2 text-[11px]">
+            <button type="button" id="demoCustomerBtn" class="py-2 px-3 rounded-xl bg-earth-sand hover:bg-brand-50 border border-earth-clay text-earth-dark font-semibold text-center transition">
+              Customer: Sarah J.
+            </button>
+            <button type="button" id="demoAdminBtn" class="py-2 px-3 rounded-xl bg-earth-sand hover:bg-brand-50 border border-earth-clay text-earth-dark font-semibold text-center transition">
+              Admin: Kesava Team
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIGN UP FORM -->
+      <div id="authRegisterSection" class="mt-5 space-y-4 hidden">
+        <form id="registerForm" class="space-y-3">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-earth-dark mb-1">Full Name</label>
+            <input type="text" id="regName" required placeholder="Sarah Jenkins" class="w-full px-4 py-2.5 rounded-xl border border-earth-clay bg-earth-sand/30 focus:outline-none focus:ring-2 focus:ring-brand-500 text-xs" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-earth-dark mb-1">Email Address</label>
+            <input type="email" id="regEmail" required placeholder="sarah@example.com" class="w-full px-4 py-2.5 rounded-xl border border-earth-clay bg-earth-sand/30 focus:outline-none focus:ring-2 focus:ring-brand-500 text-xs" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-earth-dark mb-1">Phone Number (Optional)</label>
+            <input type="tel" id="regPhone" placeholder="+1 (555) 000-0000" class="w-full px-4 py-2.5 rounded-xl border border-earth-clay bg-earth-sand/30 focus:outline-none focus:ring-2 focus:ring-brand-500 text-xs" />
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-earth-dark mb-1">Password</label>
+              <input type="password" id="regPassword" required placeholder="Min 6 chars" class="w-full px-4 py-2.5 rounded-xl border border-earth-clay bg-earth-sand/30 focus:outline-none focus:ring-2 focus:ring-brand-500 text-xs" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-earth-dark mb-1">Confirm</label>
+              <input type="password" id="regConfirmPassword" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-earth-clay bg-earth-sand/30 focus:outline-none focus:ring-2 focus:ring-brand-500 text-xs" />
+            </div>
+          </div>
+          <div class="pt-2">
+            <button type="submit" id="regSubmitBtn" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3.5 rounded-full shadow-md transition flex items-center justify-center gap-2 text-xs">
+              <i data-lucide="user-plus" class="w-4 h-4"></i>
+              <span>Create Free Account</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </dialog>
+
+  <!-- 2. User Account Dashboard Modal -->
+  <dialog id="dashboardModal" class="fixed inset-0 z-50 p-4 bg-transparent m-0 max-w-none max-h-none w-full h-full border-0 hidden">
+    <div id="dashboardBackdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-auto"></div>
+    <div class="relative bg-white rounded-3xl max-w-2xl w-full mx-auto my-auto overflow-hidden shadow-2xl z-10 pointer-events-auto border border-earth-clay flex flex-col max-h-[90vh]">
+      
+      <!-- Dashboard Header -->
+      <div class="px-6 py-5 bg-earth-sand/40 border-b border-earth-clay flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold text-sm">
+            KC
+          </div>
+          <div>
+            <h3 class="font-extrabold text-earth-dark text-base" id="dashUserName">Sarah Jenkins</h3>
+            <p class="text-xs text-earth-stone" id="dashUserEmail">demo@kesavacleaning.com</p>
+          </div>
+        </div>
+        <button id="closeDashboardBtn" class="p-1 text-earth-stone hover:text-earth-dark rounded-full">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Dashboard Tabs -->
+      <div class="flex border-b border-earth-clay px-6 text-xs font-bold bg-white">
+        <button id="dashTabBookings" class="py-3 px-4 border-b-2 border-brand-500 text-brand-600 transition flex items-center gap-1.5">
+          <i data-lucide="calendar" class="w-4 h-4"></i> My Appointments
+        </button>
+        <button id="dashTabOrders" class="py-3 px-4 border-b-2 border-transparent text-earth-stone hover:text-earth-dark transition flex items-center gap-1.5">
+          <i data-lucide="package" class="w-4 h-4"></i> Product Orders
+        </button>
+        <button id="dashTabProfile" class="py-3 px-4 border-b-2 border-transparent text-earth-stone hover:text-earth-dark transition flex items-center gap-1.5">
+          <i data-lucide="user" class="w-4 h-4"></i> Profile Details
+        </button>
+      </div>
+
+      <!-- Dashboard Body -->
+      <div class="p-6 overflow-y-auto flex-1">
+        
+        <!-- Tab 1: Bookings Content -->
+        <div id="dashBookingsContent" class="space-y-4">
+          <div class="flex justify-between items-center mb-2">
+            <h4 class="font-bold text-earth-dark text-sm">Scheduled Eco-Cleanings</h4>
+            <button onclick="booking.openBookingModal()" class="text-xs font-bold text-brand-600 hover:underline flex items-center gap-1">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Book New Clean
+            </button>
+          </div>
+          <div id="dashBookingsList" class="space-y-3">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Tab 2: Orders Content -->
+        <div id="dashOrdersContent" class="space-y-4 hidden">
+          <div class="flex justify-between items-center mb-2">
+            <h4 class="font-bold text-earth-dark text-sm">Eco-Product Order History</h4>
+          </div>
+          <div id="dashOrdersList" class="space-y-3">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Tab 3: Profile Content -->
+        <div id="dashProfileContent" class="space-y-4 hidden text-xs">
+          <div class="p-4 bg-earth-sand/40 rounded-2xl border border-earth-clay space-y-3">
+            <div>
+              <span class="text-earth-stone font-semibold">Account Role:</span>
+              <span class="font-bold text-brand-700 ml-2" id="dashUserRole">CUSTOMER</span>
+            </div>
+            <div>
+              <span class="text-earth-stone font-semibold">Registered Phone:</span>
+              <span class="font-bold text-earth-dark ml-2" id="dashUserPhone">Not provided</span>
+            </div>
+            <div>
+              <span class="text-earth-stone font-semibold">Member Benefit:</span>
+              <span class="text-emerald-700 font-bold ml-2">15% Lifetime Discount on Refill Pouches Active</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </dialog>
+
+  <!-- 3. Service Booking Appointment Modal -->
+  <dialog id="bookingModal" class="fixed inset-0 z-50 p-4 bg-transparent m-0 max-w-none max-h-none w-full h-full border-0 hidden">
+    <div id="bookingModalBackdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-auto"></div>
+    <div class="relative bg-white rounded-3xl max-w-lg w-full mx-auto my-auto overflow-hidden shadow-2xl z-10 pointer-events-auto border border-earth-clay p-6 sm:p-8 flex flex-col max-h-[90vh]">
+      
+      <!-- Booking Modal Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-earth-clay">
+        <div>
+          <h3 class="font-extrabold text-earth-dark text-lg">Schedule Your Eco-Clean</h3>
+          <p class="text-xs text-earth-stone">Kesava Certified Cleaning Specialists</p>
+        </div>
+        <button id="closeBookingModalBtn" class="text-earth-stone hover:text-earth-dark p-1 rounded-full">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Service Summary Badge Box -->
+      <div class="mt-4 p-3.5 rounded-2xl bg-brand-50 border border-brand-200 flex items-center justify-between text-xs">
+        <div>
+          <span class="font-bold text-brand-900 block" id="modalSummaryService">Residential Deep Clean</span>
+          <span class="text-[11px] text-brand-700" id="modalSummaryDetails">2 Bed / 1 Bath • 1,200 sq ft</span>
+        </div>
+        <div class="text-right">
+          <span class="text-xs text-brand-800">Total</span>
+          <span class="font-black text-brand-700 text-lg block" id="modalSummaryTotal">$129.00</span>
+        </div>
+      </div>
+
+      <div id="bookErrorMsg" class="hidden mt-3 p-2.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold"></div>
+
+      <!-- Appointment Form -->
+      <form id="bookingForm" class="mt-4 space-y-3 overflow-y-auto pr-1 text-xs">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-earth-dark mb-1">Service Date *</label>
+            <input type="date" id="bookServiceDate" required class="w-full px-3 py-2.5 rounded-xl border border-earth-clay bg-earth-sand/30 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block font-bold text-earth-dark mb-1">Time Slot *</label>
+            <select id="bookServiceTime" class="w-full px-3 py-2.5 rounded-xl border border-earth-clay bg-earth-sand/30 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none">
+              <option value="09:00 AM">Morning (09:00 AM)</option>
+              <option value="01:00 PM">Midday (01:00 PM)</option>
+              <option value="04:00 PM">Afternoon (04:00 PM)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-earth-dark mb-1">Service Address *</label>
+          <input type="text" id="bookServiceAddress" required placeholder="Street address, Apt / Suite, City, Zip" class="w-full px-3 py-2.5 rounded-xl border border-earth-clay bg-earth-sand/30 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-earth-dark mb-1">Your Name *</label>
+            <input type="text" id="bookCustomerName" required placeholder="Sarah Jenkins" class="w-full px-3 py-2.5 rounded-xl border border-earth-clay bg-earth-sand/30 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block font-bold text-earth-dark mb-1">Email *</label>
+            <input type="email" id="bookCustomerEmail" required placeholder="sarah@example.com" class="w-full px-3 py-2.5 rounded-xl border border-earth-clay bg-earth-sand/30 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-earth-dark mb-1">Phone Number</label>
+          <input type="tel" id="bookCustomerPhone" placeholder="+1 (555) 000-0000" class="w-full px-3 py-2.5 rounded-xl border border-earth-clay bg-earth-sand/30 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none" />
+        </div>
+
+        <div>
+          <label class="block font-bold text-earth-dark mb-1">Access Notes &amp; Special Requests</label>
+          <textarea id="bookSpecialNotes" rows="2" placeholder="Gate code, friendly pets, focus areas, key location..." class="w-full px-3 py-2 rounded-xl border border-earth-clay bg-earth-sand/30 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" id="bookSubmitBtn" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3.5 rounded-full shadow-lg transition flex items-center justify-center gap-2">
+            <i data-lucide="check-circle" class="w-4 h-4"></i>
+            <span>Confirm Appointment</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </dialog>
+
+  <!-- 4. Slide-Over Shopping Cart Drawer -->
+  <aside id="cartDrawer" class="fixed inset-0 z-50 pointer-events-none transition-opacity duration-300 opacity-0" aria-label="Shopping Cart">
+    <div id="cartBackdrop" class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"></div>
+    <div id="cartPanel" class="absolute top-0 right-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col pointer-events-auto transform translate-x-full transition-transform duration-300">
+      
+      <!-- Cart Header -->
+      <div class="px-6 py-5 border-b border-earth-clay flex items-center justify-between bg-earth-sand/30">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shopping-bag" class="w-5 h-5 text-brand-600"></i>
+          <h3 class="font-extrabold text-earth-dark text-lg">Your Cart (<span id="cartTotalItemsCount">1</span>)</h3>
+        </div>
+        <button id="closeCartBtn" class="p-1 rounded-full text-earth-stone hover:text-earth-dark hover:bg-earth-sand">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Free Shipping Goal Meter -->
+      <div class="bg-brand-50 px-6 py-3 border-b border-brand-100 text-xs">
+        <div class="flex justify-between font-bold text-brand-900 mb-1">
+          <span id="shippingMeterText">You're $6 away from Free Carbon-Neutral Shipping!</span>
+          <span id="shippingMeterPct">80%</span>
+        </div>
+        <div class="w-full bg-brand-200 h-2 rounded-full overflow-hidden">
+          <div id="shippingProgressBar" class="bg-brand-500 h-full rounded-full transition-all duration-300" style="width: 80%;"></div>
+        </div>
+      </div>
+
+      <!-- Cart Items List -->
+      <div class="flex-1 overflow-y-auto px-6 py-6 space-y-4" id="cartItemList">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Promo Code Section -->
+      <div class="px-6 py-2 border-t border-earth-clay/60 bg-white">
+        <div class="flex gap-2">
+          <input type="text" id="promoCodeInput" placeholder="Promo code (e.g. CLEAN15)" class="flex-1 px-3 py-1.5 rounded-xl border border-earth-clay bg-earth-sand/30 text-xs uppercase" />
+          <button id="applyPromoBtn" class="bg-earth-dark hover:bg-black text-white px-3 py-1.5 rounded-xl text-xs font-bold transition">Apply</button>
+        </div>
+        <p id="promoSuccessMsg" class="text-[11px] text-brand-600 font-bold mt-1 hidden">✓ 15% discount code applied!</p>
+        <p id="promoErrorMsg" class="text-[11px] text-red-500 font-semibold mt-1 hidden">Invalid code. Try CLEAN15.</p>
+      </div>
+
+      <!-- Drawer Footer & Checkout -->
+      <div class="border-t border-earth-clay px-6 py-6 bg-earth-sand/30 space-y-4">
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between text-earth-stone">
+            <span>Subtotal</span>
+            <span id="cartSubtotal" class="font-bold text-earth-dark">$34.00</span>
+          </div>
+          <div id="cartDiscountRow" class="flex justify-between text-brand-600 font-semibold hidden">
+            <span>Special Discount (15%)</span>
+            <span id="cartDiscountVal">-$5.10</span>
+          </div>
+          <div class="flex justify-between text-earth-stone">
+            <span>Estimated Shipping</span>
+            <span class="text-brand-600 font-semibold" id="cartShippingCost">FREE</span>
+          </div>
+          <div class="flex justify-between text-base font-extrabold text-earth-dark pt-2 border-t border-earth-clay">
+            <span>Total</span>
+            <span id="cartTotal" class="text-brand-600 text-xl font-black">$34.00</span>
+          </div>
+        </div>
+
+        <button id="checkoutBtn" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 rounded-full shadow-lg shadow-brand-500/30 transition flex items-center justify-center gap-2">
+          <i data-lucide="lock" class="w-4 h-4"></i>
+          <span>Proceed to Eco-Checkout</span>
+        </button>
+
+        <p class="text-[11px] text-center text-earth-stone">
+          🌱 Plant 1 Tree automatically with this order via Eden Reforestation Projects.
+        </p>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- 5. Write a Review Modal -->
+  <dialog id="writeReviewModal" class="fixed inset-0 z-50 p-4 bg-transparent m-0 max-w-none max-h-none w-full h-full border-0 hidden">
+    <div id="writeReviewBackdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-auto"></div>
+    <div class="relative bg-white rounded-3xl max-w-md w-full mx-auto my-auto overflow-hidden shadow-2xl z-10 pointer-events-auto border border-earth-clay p-6 sm:p-8">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-earth-clay">
+        <h3 class="font-extrabold text-earth-dark text-base">Write a Verified Review</h3>
+        <button id="closeReviewModalBtn" class="text-earth-stone hover:text-earth-dark p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="writeReviewForm" class="mt-4 space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-earth-dark mb-1">Your Name</label>
+          <input type="text" id="reviewAuthorName" required placeholder="Elena L." class="w-full px-3 py-2 rounded-xl border border-earth-clay bg-earth-sand/30" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-earth-dark mb-1">Star Rating</label>
+            <select id="reviewRatingSelect" class="w-full px-3 py-2 rounded-xl border border-earth-clay bg-earth-sand/30 font-bold text-amber-500">
+              <option value="5">★★★★★ (5 Stars)</option>
+              <option value="4">★★★★☆ (4 Stars)</option>
+              <option value="3">★★★☆☆ (3 Stars)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-earth-dark mb-1">Surface Tested</label>
+            <select id="reviewSurfaceSelect" class="w-full px-3 py-2 rounded-xl border border-earth-clay bg-earth-sand/30">
+              <option value="Induction Stovetop">Induction Cooktop</option>
+              <option value="Bathroom Tiles & Shower Glass">Bathroom Tiles & Glass</option>
+              <option value="Hardwood & Marble Counters">Hardwood & Marble</option>
+              <option value="Full Residential Deep Clean">Full Home Deep Clean</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block font-bold text-earth-dark mb-1">Review Title</label>
+          <input type="text" id="reviewTitleInput" placeholder="Cuts baked-on marinara effortlessly" class="w-full px-3 py-2 rounded-xl border border-earth-clay bg-earth-sand/30" />
+        </div>
+        <div>
+          <label class="block font-bold text-earth-dark mb-1">Your Honest Feedback *</label>
+          <textarea id="reviewCommentInput" required rows="3" placeholder="Tell us how Kesava Cleaning performed on your toughest stains..." class="w-full px-3 py-2 rounded-xl border border-earth-clay bg-earth-sand/30"></textarea>
+        </div>
+        <div class="pt-2">
+          <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3 rounded-full shadow transition">
+            Publish Review
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </dialog>
+
+  <!-- 6. Watch It Clean Video Modal -->
+  <dialog id="videoModal" class="fixed inset-0 z-50 pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center p-4 bg-transparent m-0 max-w-none max-h-none w-full h-full border-0 hidden">
+    <div id="videoModalBackdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm pointer-events-auto"></div>
+    <div class="relative bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl z-10 pointer-events-auto border border-earth-clay">
+      <div class="p-4 bg-earth-dark text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
+          <span class="text-xs font-bold tracking-wider uppercase">Live Lab Demo &bull; 60 Seconds</span>
+        </div>
+        <button id="closeVideoModalBtn" class="text-neutral-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      
+      <div class="relative bg-neutral-900 aspect-video flex items-center justify-center overflow-hidden">
+        <div class="text-center p-8 z-10">
+          <div class="w-16 h-16 rounded-full bg-brand-500/90 text-white flex items-center justify-center mx-auto mb-4 shadow-xl hover:scale-110 transition cursor-pointer" id="playDemoBtn">
+            <i data-lucide="play" class="w-8 h-8 fill-white translate-x-0.5"></i>
+          </div>
+          <h4 class="text-white font-extrabold text-lg">Watch Bio-Enzyme Action on 48h Dried Marinara</h4>
+          <p class="text-neutral-300 text-xs mt-1 max-w-md mx-auto">Side-by-side dissolution without surface scratching or petrochemical residue.</p>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30"></div>
+      </div>
+
+      <div class="p-6 bg-earth-sand/40 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <i data-lucide="check-circle" class="w-5 h-5 text-brand-600"></i>
+          <span class="text-xs font-semibold text-earth-dark">ASTM D4488 Standard Hard-Surface Soil Protocol</span>
+        </div>
+        <button onclick="document.getElementById('videoModal').close(); location.hash='#products';" class="bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs px-5 py-2.5 rounded-full transition">Shop Starter Kit</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 7. Toast Notification -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-earth-dark text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-earth-clay/20 pointer-events-none">
+    <div class="w-7 h-7 rounded-full bg-brand-500 flex items-center justify-center text-white shrink-0">
+      <i data-lucide="check" class="w-4 h-4"></i>
+    </div>
+    <div>
+      <p id="toastMessage" class="text-xs font-bold">Action Completed Successfully</p>
+      <p class="text-[10px] text-neutral-300">Kesava Cleaning Eco-System Updated</p>
+    </div>
+  </div>
+
+  <!-- Client Application Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
